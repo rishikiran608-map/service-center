@@ -3,39 +3,39 @@
    ========================================================= */
 
 /* ── Google Fonts ── */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* ── Design Tokens ── */
 :root {
   --blue-900: #0a1628;
-  --blue-800: #0d2247;
-  --blue-700: #0f3460;
-  --blue-600: #1a4d8f;
+  --blue-800: #0D1B2A;
+  --blue-700: #1B263B;
+  --blue-600: #415A77;
   --blue-500: #2563eb;
   --blue-400: #3b82f6;
   --blue-100: #dbeafe;
   --blue-50:  #eff6ff;
 
-  --orange-600: #ea580c;
-  --orange-500: #f97316;
-  --orange-400: #fb923c;
-  --orange-100: #ffedd5;
+  --orange-600: #d97706;
+  --orange-500: #f59e0b;
+  --orange-400: #fbbf24;
+  --orange-100: #fef3c7;
 
-  --green-500: #22c55e;
-  --green-600: #16a34a;
+  --green-500: #10b981;
+  --green-600: #059669;
 
   --white:   #ffffff;
-  --gray-50: #f9fafb;
-  --gray-100:#f3f4f6;
-  --gray-200:#e5e7eb;
-  --gray-400:#9ca3af;
-  --gray-500:#6b7280;
-  --gray-600:#4b5563;
-  --gray-700:#374151;
-  --gray-800:#1f2937;
-  --gray-900:#111827;
+  --gray-50: #f8fafc;
+  --gray-100:#f1f5f9;
+  --gray-200:#e2e8f0;
+  --gray-400:#94a3b8;
+  --gray-500:#64748b;
+  --gray-600:#475569;
+  --gray-700:#334155;
+  --gray-800:#1e293b;
+  --gray-900:#0f172a;
 
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-display: 'Outfit', sans-serif;
   --font-body:    'Inter', system-ui, sans-serif;
 
   --radius-sm: 6px;
@@ -102,55 +102,79 @@ p  { color: var(--gray-600); }
   align-items: center;
   gap: .5rem;
   padding: .75rem 1.75rem;
-  border-radius: var(--radius-md);
+  border-radius: 50px;
   font-size: .95rem;
   font-weight: 600;
-  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
+  letter-spacing: 0.01em;
+  transition: all var(--transition);
   white-space: nowrap;
 }
-.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.btn:active { transform: translateY(0); }
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+.btn:active {
+  transform: translateY(-1px);
+}
 
 .btn-primary {
-  background: var(--orange-500);
+  background: linear-gradient(135deg, var(--orange-500) 0%, #ea580c 100%);
   color: var(--white);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
 }
-.btn-primary:hover { background: var(--orange-600); }
+.btn-primary:hover {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
+}
 
 .btn-secondary {
   background: var(--white);
-  color: var(--blue-700);
-  border: 2px solid var(--blue-700);
+  color: var(--gray-800);
+  border: 1.5px solid var(--gray-200);
 }
-.btn-secondary:hover { background: var(--blue-50); }
+.btn-secondary:hover {
+  background: var(--gray-50);
+  border-color: var(--gray-400);
+}
 
 .btn-blue {
-  background: var(--blue-700);
+  background: linear-gradient(135deg, var(--blue-700) 0%, var(--blue-800) 100%);
   color: var(--white);
+  box-shadow: 0 4px 14px rgba(27, 38, 59, 0.25);
 }
-.btn-blue:hover { background: var(--blue-800); }
+.btn-blue:hover {
+  background: linear-gradient(135deg, #1d2d44 0%, #0d1b2a 100%);
+  box-shadow: 0 6px 20px rgba(27, 38, 59, 0.35);
+}
 
 .btn-outline-white {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.08);
   color: var(--white);
-  border: 2px solid rgba(255,255,255,.7);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
 }
-.btn-outline-white:hover { background: rgba(255,255,255,.15); }
+.btn-outline-white:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--white);
+}
 
-.btn-sm { padding: .5rem 1.2rem; font-size: .85rem; }
-.btn-lg { padding: 1rem 2.25rem; font-size: 1.05rem; }
+.btn-sm { padding: .55rem 1.3rem; font-size: .85rem; }
+.btn-lg { padding: 1.05rem 2.5rem; font-size: 1.05rem; }
 
 /* ── HEADER ── */
 #site-header {
   position: sticky;
   top: 0;
   z-index: 900;
-  background: var(--white);
-  border-bottom: 1px solid var(--gray-200);
-  box-shadow: var(--shadow-sm);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
   height: var(--header-h);
   display: flex;
   align-items: center;
+  transition: all 0.3s ease;
 }
 .header-inner {
   display: flex;
@@ -163,41 +187,48 @@ p  { color: var(--gray-600); }
   align-items: center;
   gap: .75rem;
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.4rem;
   color: var(--blue-800);
-  font-weight: 700;
+  font-weight: 800;
 }
 .logo-icon {
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   background: linear-gradient(135deg, var(--blue-700), var(--blue-500));
-  border-radius: var(--radius-sm);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--white);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 10px rgba(37,99,235,0.25);
 }
 .logo-text span { color: var(--orange-500); }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: .25rem;
+  gap: .35rem;
 }
 .nav-links a {
-  padding: .45rem .9rem;
-  border-radius: var(--radius-sm);
+  padding: .5rem 1rem;
+  border-radius: 50px;
   font-size: .9rem;
-  font-weight: 500;
-  color: var(--gray-700);
-  transition: background var(--transition), color var(--transition);
+  font-weight: 600;
+  color: var(--gray-600);
+  transition: all var(--transition);
 }
-.nav-links a:hover,
-.nav-links a.active { background: var(--blue-50); color: var(--blue-700); }
+.nav-links a:hover {
+  color: var(--blue-500);
+  background: rgba(37,99,235,0.06);
+}
+.nav-links a.active {
+  color: var(--white);
+  background: var(--blue-700);
+}
 
 .header-cta { display: flex; align-items: center; gap: .6rem; }
-.header-cta .btn { padding: .5rem 1.1rem; font-size: .85rem; }
+.header-cta .btn { padding: .55rem 1.3rem; font-size: .85rem; }
 
 .nav-toggle {
   display: none;
@@ -430,37 +461,40 @@ section.alt { background: var(--gray-50); }
 }
 .service-card {
   background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius-lg);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 24px;
   padding: 32px 28px;
   text-align: center;
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  transition: all var(--transition);
   cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.01);
 }
 .service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(15,23,42,0.06);
   border-color: var(--blue-400);
 }
 .service-card-icon {
-  width: 72px;
-  height: 72px;
-  background: linear-gradient(135deg, var(--blue-50), var(--blue-100));
-  border-radius: var(--radius-md);
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, rgba(37,99,235,0.05), rgba(37,99,235,0.1));
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1.2rem;
+  margin: 0 auto 1.3rem;
   font-size: 2rem;
-  transition: background var(--transition);
+  transition: all var(--transition);
 }
 .service-card:hover .service-card-icon {
-  background: linear-gradient(135deg, var(--blue-600), var(--blue-500));
+  background: linear-gradient(135deg, var(--blue-700), var(--blue-500));
+  color: var(--white);
+  transform: rotate(5deg);
 }
-.service-card h3 { margin-bottom: .4rem; color: var(--gray-900); }
-.service-card p  { font-size: .88rem; margin-bottom: 1rem; }
+.service-card h3 { margin-bottom: .45rem; color: var(--gray-900); font-weight: 700; font-family: var(--font-display); }
+.service-card p  { font-size: .88rem; margin-bottom: 1.1rem; color: var(--gray-500); }
 .service-card .card-link {
-  color: var(--blue-600);
+  color: var(--blue-500);
   font-size: .85rem;
   font-weight: 600;
   display: inline-flex;
