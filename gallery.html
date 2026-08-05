@@ -31,6 +31,106 @@
       border-color: var(--blue-700);
       color: var(--white);
     }
+
+    /* ── HIDE the manage button from regular visitors ── */
+    #openWorksModalBtn {
+      display: none !important;
+    }
+
+    /* ── Secret owner trigger — tiny gear icon, barely visible ── */
+    #ownerSecretTrigger {
+      position: fixed;
+      bottom: 10px;
+      right: 14px;
+      z-index: 9000;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      opacity: 0.12;
+      color: var(--gray-500);
+      padding: 4px 6px;
+      border-radius: 4px;
+      transition: opacity 0.3s;
+      line-height: 1;
+      user-select: none;
+    }
+    #ownerSecretTrigger:hover { opacity: 0.5; }
+
+    /* ── Password Modal ── */
+    #pwdModalOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+    }
+    #pwdModalOverlay.open { display: flex; }
+    .pwd-box {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2rem 2rem 1.5rem;
+      width: min(360px, 90vw);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+      text-align: center;
+      animation: fadeIn 0.2s ease;
+    }
+    .pwd-box h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 0.3rem;
+    }
+    .pwd-box p {
+      font-size: 0.875rem;
+      color: var(--gray-500);
+      margin-bottom: 1.2rem;
+    }
+    .pwd-box input[type="password"] {
+      width: 100%;
+      padding: 0.65rem 1rem;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .pwd-box input[type="password"]:focus { border-color: var(--blue-600); }
+    .pwd-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .pwd-actions button {
+      flex: 1;
+      padding: 0.6rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .pwd-actions .btn-unlock {
+      background: var(--blue-700);
+      color: #fff;
+    }
+    .pwd-actions .btn-unlock:hover { background: var(--blue-800); }
+    .pwd-actions .btn-cancel {
+      background: var(--gray-100);
+      color: var(--gray-700);
+    }
+    .pwd-actions .btn-cancel:hover { background: var(--gray-200); }
+    #pwdError {
+      font-size: 0.8rem;
+      color: #dc2626;
+      margin-top: 0.6rem;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -148,6 +248,23 @@
     </div>
   </div>
 </div>
+
+<!-- ── PASSWORD MODAL (owner-only access) ── -->
+<div id="pwdModalOverlay" role="dialog" aria-modal="true" aria-labelledby="pwdModalTitle">
+  <div class="pwd-box">
+    <h3 id="pwdModalTitle">🔐 Owner Access</h3>
+    <p>Enter your password to manage gallery photos</p>
+    <input type="password" id="pwdInput" placeholder="Enter password…" autocomplete="current-password" />
+    <div class="pwd-actions">
+      <button class="btn-unlock" id="pwdUnlockBtn">Unlock →</button>
+      <button class="btn-cancel" id="pwdCancelBtn">Cancel</button>
+    </div>
+    <div id="pwdError">❌ Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<!-- ── SECRET OWNER TRIGGER (barely visible gear in corner) ── -->
+<button id="ownerSecretTrigger" title="" aria-label="Settings">⚙</button>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
@@ -391,11 +508,58 @@ function closeModal() {
   imagePreviewBox.classList.remove('show');
 }
 
-openModalBtn.addEventListener('click', openModal);
 closeModalBtn.addEventListener('click', closeModal);
 modalOverlay.addEventListener('click', e => {
   if (e.target === modalOverlay) closeModal();
 });
+
+// ── OWNER PASSWORD PROTECTION ──
+// Password is base64-encoded — change 'ifb@2024' to your preferred password
+const OWNER_KEY = btoa('ifb@2024');
+const SESSION_FLAG = 'ifb_owner_unlocked';
+
+const pwdOverlay    = document.getElementById('pwdModalOverlay');
+const pwdInput      = document.getElementById('pwdInput');
+const pwdError      = document.getElementById('pwdError');
+const pwdUnlockBtn  = document.getElementById('pwdUnlockBtn');
+const pwdCancelBtn  = document.getElementById('pwdCancelBtn');
+const secretTrigger = document.getElementById('ownerSecretTrigger');
+
+function openPwdModal() {
+  pwdInput.value = '';
+  pwdError.style.display = 'none';
+  pwdOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => pwdInput.focus(), 120);
+}
+function closePwdModal() {
+  pwdOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+function checkOwnerPassword() {
+  if (btoa(pwdInput.value) === OWNER_KEY) {
+    sessionStorage.setItem(SESSION_FLAG, '1');
+    closePwdModal();
+    openModal();
+  } else {
+    pwdError.style.display = 'block';
+    pwdInput.value = '';
+    pwdInput.focus();
+  }
+}
+function handleOwnerTrigger() {
+  if (sessionStorage.getItem(SESSION_FLAG)) {
+    openModal(); // already authenticated this session
+  } else {
+    openPwdModal();
+  }
+}
+
+secretTrigger.addEventListener('click', handleOwnerTrigger);
+pwdUnlockBtn.addEventListener('click', checkOwnerPassword);
+pwdCancelBtn.addEventListener('click', closePwdModal);
+pwdInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkOwnerPassword(); });
+pwdOverlay.addEventListener('click', e => { if (e.target === pwdOverlay) closePwdModal(); });
 
 // Dropzone file picker
 dropzoneBox.addEventListener('click', () => photoFileInput.click());
