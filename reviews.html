@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Reviews | IFB Service Center Anantapur</title>
+  <meta name="description" content="Read genuine customer reviews for IFB Service Center Anantapur. Real stories from families we've helped. Share your own experience." />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<header id="site-header" role="banner"></header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a> <span>›</span> <span>Reviews</span>
+    </nav>
+    <h1>Customer Reviews &amp; Testimonials</h1>
+    <p>Real stories from Anantapur families — honest feedback from the people we serve.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <!-- Review Stats -->
+    <div id="reviewStats" style="margin-bottom:2rem" aria-label="Review statistics"></div>
+
+    <div style="display:grid;grid-template-columns:1fr 360px;gap:48px;align-items:start">
+
+      <!-- Reviews List -->
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.5rem">
+          <h2 style="font-size:1.3rem;color:var(--gray-900)">All Reviews</h2>
+          <select id="reviewSort" class="form-control" style="width:auto;padding:.4rem .8rem;font-size:.85rem" aria-label="Sort reviews">
+            <option value="newest">Newest First</option>
+            <option value="highest">Highest Rated</option>
+            <option value="lowest">Lowest Rated</option>
+          </select>
+        </div>
+        <div id="reviewsGrid" style="display:flex;flex-direction:column;gap:20px">
+          <!-- Rendered by reviews.js -->
+        </div>
+      </div>
+
+      <!-- Leave a Review Form (sticky) -->
+      <div style="position:sticky;top:88px">
+        <div class="review-form-card">
+          <span class="section-label">Your Turn</span>
+          <h3 style="margin-bottom:.3rem;color:var(--gray-900)">Leave a Review</h3>
+          <p style="font-size:.87rem;margin-bottom:1.5rem">Helped by our team? Share your experience — it means a lot and helps other families.</p>
+
+          <form id="reviewForm" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="reviewerName">Your Name <span style="color:red">*</span></label>
+              <input type="text" id="reviewerName" class="form-control" placeholder="e.g. Ravi Kumar" required autocomplete="name" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Your Rating <span style="color:red">*</span></label>
+              <div class="star-picker" id="starPicker" role="group" aria-label="Rate your experience"></div>
+              <input type="hidden" id="ratingValue" value="0" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reviewAppliance">Appliance Repaired</label>
+              <select id="reviewAppliance" class="form-control">
+                <option value="">Select appliance (optional)</option>
+                <option>Washing Machine</option>
+                <option>AC Repair</option>
+                <option>Refrigerator</option>
+                <option>Installation</option>
+                <option>AMC</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reviewComment">Your Review <span style="color:red">*</span></label>
+              <textarea id="reviewComment" class="form-control" placeholder="Tell us about your experience — what was the issue, how was the service?" required maxlength="500"></textarea>
+              <div style="font-size:.75rem;color:var(--gray-400);margin-top:.25rem">Max 500 characters</div>
+            </div>
+
+            <!-- Attached Photo Upload Field -->
+            <div class="form-group">
+              <label class="form-label">Attach Photo (Optional)</label>
+              <div class="photo-upload-zone" id="reviewPhotoZone">
+                <div class="upload-icon">📷</div>
+                <div class="upload-text">Click or drag &amp; drop appliance photo</div>
+                <div class="upload-hint">Show your repaired appliance or before/after photo</div>
+                <input type="file" id="reviewPhotoInput" accept="image/*" style="display:none" />
+              </div>
+              <div class="photo-preview-container" id="reviewPhotoPreview" style="display:none">
+                <img id="reviewPhotoImg" src="" alt="Review photo preview" />
+                <button type="button" class="btn-remove-photo" id="btnRemoveReviewPhoto" title="Remove photo">✕</button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full" style="justify-content:center">
+              ⭐ Submit Review
+            </button>
+          </form>
+
+          <div class="success-msg" id="reviewSuccess">
+            ✅ Thank you! Your review has been published. We appreciate your feedback.
+          </div>
+        </div>
+
+        <!-- Trust note -->
+        <div style="margin-top:1rem;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:var(--radius-md);padding:14px 16px">
+          <p style="font-size:.8rem;color:var(--blue-700);margin:0">
+            🔒 Reviews are stored locally on your device. A backend connection can be added any time to centralise them.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Responsive stacking on mobile -->
+    <style>
+      @media (max-width: 760px) {
+        section > .container > div[style*="grid-template-columns:1fr 360px"] {
+          display: flex !important;
+          flex-direction: column-reverse;
+        }
+        div[style*="position:sticky"] { position: static !important; }
+        .review-form-card { margin-bottom: 2rem; }
+      }
+    </style>
+
+  </div>
+</section>
+
+<div class="cta-section">
+  <div class="container">
+    <h2>Loved Our Service?</h2>
+    <p>Refer a friend and both of you get ₹100 off on the next repair. Call us or WhatsApp to know more.</p>
+    <div class="cta-buttons">
+      <a href="https://wa.me/919133576669?text=Hi%2C%20I%20want%20to%20refer%20a%20friend%20for%20the%20discount%20offer." target="_blank" rel="noopener" class="btn btn-primary btn-lg">💬 Refer on WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- Image Lightbox Viewer -->
+<div class="lightbox" id="reviewLightbox" role="dialog" aria-modal="true" aria-label="Enlarged review photo view">
+  <button class="lightbox-close" id="closeReviewLightbox" aria-label="Close image viewer">✕</button>
+  <img src="" alt="Enlarged view of review photo" id="reviewLightboxImg" />
+</div>
+
+<footer id="site-footer" role="contentinfo"></footer>
+
+<script src="js/main.js"></script>
+<script src="js/reviews.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  initStarPicker('starPicker', 'ratingValue');
+  renderStats('reviewStats');
+  renderReviewsSorted('newest');
+  initReviewForm('reviewForm');
+
+  document.getElementById('reviewSort').addEventListener('change', function () {
+    renderReviewsSorted(this.value);
+  });
+});
+
+function renderReviewsSorted(sort) {
+  const grid = document.getElementById('reviewsGrid');
+  let reviews = loadReviews();
+  if (sort === 'highest') reviews.sort((a,b) => b.rating - a.rating);
+  if (sort === 'lowest')  reviews.sort((a,b) => a.rating - b.rating);
+  grid.innerHTML = reviews.map(r => buildReviewCard(r)).join('');
+  if (typeof initScrollReveal === 'function') initScrollReveal();
+}
+</script>
+</body>
+</html>

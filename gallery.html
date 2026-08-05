@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | IFB Service Center Anantapur — Repair Work in Action</title>
+  <meta name="description" content="See our technicians at work — before and after repair photos, installation jobs, and service visits across Anantapur." />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .gallery-filter-row {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .filter-btn {
+      padding: .4rem 1rem;
+      border-radius: 50px;
+      font-size: .85rem;
+      font-weight: 600;
+      border: 1.5px solid var(--gray-200);
+      background: var(--white);
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--blue-700);
+      border-color: var(--blue-700);
+      color: var(--white);
+    }
+  </style>
+</head>
+<body>
+
+<header id="site-header" role="banner"></header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a> <span>›</span> <span>Gallery</span>
+    </nav>
+    <h1>Our Work in Pictures</h1>
+    <p>Real repairs, real results — see the quality and care our technicians bring to every job.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+
+    <!-- Header Controls & Filters -->
+    <div class="gallery-header-controls">
+      <!-- Work Type Filter Tabs (Past vs Upcoming) -->
+      <div class="gallery-type-tabs" role="tablist" aria-label="Filter works by status">
+        <button class="type-tab active" data-type="all">All Works</button>
+        <button class="type-tab" data-type="past">Past Works 🏆</button>
+        <button class="type-tab" data-type="upcoming">Upcoming Works 📅</button>
+      </div>
+
+      <!-- Add/Manage Photos Button for Client -->
+      <button class="btn-add-photos" id="openWorksModalBtn">
+        <i data-lucide="plus-circle"></i> ➕ Add / Manage Photos
+      </button>
+    </div>
+
+    <!-- Appliance Category Filter buttons -->
+    <div class="gallery-filter-row" role="group" aria-label="Filter gallery by appliance category">
+      <button class="filter-btn active" data-filter="all">All Appliances</button>
+      <button class="filter-btn" data-filter="washing-machine">Washing Machine</button>
+      <button class="filter-btn" data-filter="ac">AC Repair</button>
+      <button class="filter-btn" data-filter="refrigerator">Refrigerator</button>
+      <button class="filter-btn" data-filter="installation">Installation</button>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid" id="galleryGrid" role="list">
+      <!-- Injected dynamically by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- Before/After highlight -->
+<section class="alt" aria-labelledby="beforeAfterHeading">
+  <div class="container">
+    <div class="section-head center">
+      <span class="section-label">Transformations</span>
+      <h2 class="section-title" id="beforeAfterHeading">Before &amp; After Repairs</h2>
+      <div class="divider center"></div>
+      <p class="section-sub">The difference genuine parts and skilled hands can make.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+      <div style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);border:1px solid var(--gray-200)" class="reveal">
+        <div style="display:grid;grid-template-columns:1fr 1fr">
+          <div style="background:linear-gradient(135deg,#1f2937,#374151);height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,.6);font-size:.8rem;gap:.3rem">
+            <span style="font-size:2rem">🔴</span>Before
+          </div>
+          <div style="background:linear-gradient(135deg,#065f46,#10b981);height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,.85);font-size:.8rem;gap:.3rem">
+            <span style="font-size:2rem">✅</span>After
+          </div>
+        </div>
+        <div style="padding:16px 20px">
+          <div style="font-weight:700;color:var(--gray-900);margin-bottom:.2rem">IFB Front Load — Drum Bearing</div>
+          <div style="font-size:.83rem;color:var(--gray-500)">Severe vibration &amp; noise → Silent, smooth operation after bearing &amp; drum replacement.</div>
+        </div>
+      </div>
+      <div style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);border:1px solid var(--gray-200)" class="reveal">
+        <div style="display:grid;grid-template-columns:1fr 1fr">
+          <div style="background:linear-gradient(135deg,#1f2937,#374151);height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,.6);font-size:.8rem;gap:.3rem">
+            <span style="font-size:2rem">🔴</span>Before
+          </div>
+          <div style="background:linear-gradient(135deg,#065f46,#10b981);height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,.85);font-size:.8rem;gap:.3rem">
+            <span style="font-size:2rem">✅</span>After
+          </div>
+        </div>
+        <div style="padding:16px 20px">
+          <div style="font-weight:700;color:var(--gray-900);margin-bottom:.2rem">LG Split AC — Gas Refill + Clean</div>
+          <div style="font-size:.83rem;color:var(--gray-500)">Room not cooling in summer → Full cooling restored with R32 gas refill &amp; deep coil clean.</div>
+        </div>
+      </div>
+      <div style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);border:1px solid var(--gray-200)" class="reveal">
+        <div style="display:grid;grid-template-columns:1fr 1fr">
+          <div style="background:linear-gradient(135deg,#1f2937,#374151);height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,.6);font-size:.8rem;gap:.3rem">
+            <span style="font-size:2rem">🔴</span>Before
+          </div>
+          <div style="background:linear-gradient(135deg,#065f46,#10b981);height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,.85);font-size:.8rem;gap:.3rem">
+            <span style="font-size:2rem">✅</span>After
+          </div>
+        </div>
+        <div style="padding:16px 20px">
+          <div style="font-weight:700;color:var(--gray-900);margin-bottom:.2rem">Samsung Refrigerator — Compressor</div>
+          <div style="font-size:.83rem;color:var(--gray-500)">Total cooling failure → New compressor with sealed system recharge. Cooling restored in 4 hours.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-section">
+  <div class="container">
+    <h2>Ready to Get Your Appliance Fixed?</h2>
+    <p>Book a technician visit today — we'll restore it to like-new condition.</p>
+    <div class="cta-buttons">
+      <a href="contact.html" class="btn btn-primary btn-lg">📅 Book a Service</a>
+      <a href="https://wa.me/919133576669" target="_blank" rel="noopener" class="btn btn-outline-white btn-lg">💬 WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close image viewer">✕</button>
+  <img src="" alt="Gallery image enlarged view" id="lightboxImg" />
+</div>
+
+<!-- CLIENT PHOTO MANAGER MODAL -->
+<div class="works-modal-overlay" id="worksModalOverlay" role="dialog" aria-modal="true" aria-labelledby="worksModalTitle">
+  <div class="works-modal">
+    <div class="works-modal-header">
+      <h3 id="worksModalTitle">📸 Client Photo & Work Manager</h3>
+      <button class="works-modal-close" id="closeWorksModalBtn" aria-label="Close modal">✕</button>
+    </div>
+    <div class="works-modal-body">
+      <form id="addWorkForm">
+        <div class="form-group">
+          <label class="form-label" for="workTitle">Work Title / Event Name *</label>
+          <input type="text" id="workTitle" class="form-control" placeholder="e.g. IFB Washing Machine Bearing Service" required />
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label class="form-label" for="workType">Work Type *</label>
+            <select id="workType" class="form-control" required>
+              <option value="past">Past Work 🏆</option>
+              <option value="upcoming">Upcoming Work 📅</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="workCategory">Appliance Category *</label>
+            <select id="workCategory" class="form-control" required>
+              <option value="washing-machine">Washing Machine</option>
+              <option value="ac">AC Repair</option>
+              <option value="refrigerator">Refrigerator</option>
+              <option value="installation">Installation</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Upload Photo *</label>
+          <div class="dropzone-container" id="dropzoneBox">
+            <div class="dropzone-icon">📷</div>
+            <div class="dropzone-text">Click or drag &amp; drop photo here</div>
+            <div class="dropzone-hint">Supports PNG, JPG, WEBP, GIF (stored in browser memory)</div>
+            <input type="file" id="photoFileInput" accept="image/*" style="display:none" />
+          </div>
+          
+          <div class="image-preview-box" id="imagePreviewBox">
+            <img id="imagePreviewImg" src="" alt="Preview photo" />
+          </div>
+
+          <div style="margin-top:0.4rem;font-size:0.8rem;color:var(--gray-500);text-align:center">OR paste photo URL:</div>
+          <input type="url" id="photoUrlInput" class="form-control mt-1" placeholder="https://example.com/photo.jpg" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="workDescription">Description / Details</label>
+          <textarea id="workDescription" class="form-control" rows="2" placeholder="Brief details about the repair or upcoming event..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="workDate">Date</label>
+          <input type="date" id="workDate" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full" style="padding:10px 16px;font-size:0.95rem">
+          ✨ Add Photo to Works Gallery
+        </button>
+      </form>
+
+      <!-- Manage & Delete Existing Photos List -->
+      <div class="manage-list-section">
+        <div class="manage-list-title">
+          <span>Existing Works (<span id="worksCount">0</span>)</span>
+          <button type="button" id="resetDefaultsBtn" style="background:none;border:none;color:var(--blue-600);font-size:0.78rem;cursor:pointer;text-decoration:underline">Reset Sample Defaults</button>
+        </div>
+        <div id="manageWorksList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer id="site-footer" role="contentinfo"></footer>
+
+<script src="js/main.js"></script>
+<script src="js/works-manager.js"></script>
+<script>
+let currentCategoryFilter = 'all';
+let currentTypeFilter = 'all';
+let uploadedBase64Image = '';
+
+function renderGallery() {
+  const grid = document.getElementById('galleryGrid');
+  const allWorks = window.WorksManager ? window.WorksManager.getWorks() : [];
+
+  const filtered = allWorks.filter(item => {
+    const matchCategory = currentCategoryFilter === 'all' || item.category === currentCategoryFilter;
+    const matchType = currentTypeFilter === 'all' || item.type === currentTypeFilter;
+    return matchCategory && matchType;
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:40px 20px;background:var(--gray-50);border-radius:var(--radius-md);border:1px dashed var(--gray-300)">
+        <div style="font-size:2.5rem;margin-bottom:0.5rem">📷</div>
+        <div style="font-weight:600;color:var(--gray-700)">No photos found for selected filters</div>
+        <div style="font-size:0.85rem;color:var(--gray-500);margin-top:0.2rem">Click "+ Add / Manage Photos" above to add new past or upcoming work photos.</div>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map((item, idx) => {
+    const typeLabel = item.type === 'upcoming' ? '📅 Upcoming Work' : '🏆 Past Work';
+    const typeClass = item.type === 'upcoming' ? 'upcoming' : 'past';
+
+    let contentHtml = '';
+    if (item.image) {
+      contentHtml = `<img src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.onerror=null;this.src='images/service-washing-machine.png';" />`;
+    } else {
+      contentHtml = `
+        <div style="width:100%;height:100%;background:${item.bg || 'linear-gradient(135deg,#0f3460,#2563eb)'};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;padding:16px">
+          <span style="font-size:3.5rem">${item.icon || '🛠️'}</span>
+          <span style="font-size:.78rem;color:rgba(255,255,255,.8);font-weight:600;text-align:center;line-height:1.3">${item.title}</span>
+        </div>`;
+    }
+
+    return `
+      <div class="gallery-item reveal" role="listitem" data-id="${item.id}" tabindex="0" aria-label="${item.title}">
+        <span class="work-type-badge ${typeClass}">${typeLabel}</span>
+        ${contentHtml}
+        <div class="gallery-overlay">
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <span style="font-weight:700">${item.title}</span>
+            <span style="font-size:0.75rem;opacity:0.85">${item.description || item.category}</span>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  // Lightbox click handlers
+  grid.querySelectorAll('.gallery-item').forEach(el => {
+    const id = el.dataset.id;
+    const item = allWorks.find(w => w.id === id);
+    const open = () => openLightbox(item);
+    el.addEventListener('click', open);
+    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') open(); });
+  });
+
+  if (typeof initScrollReveal === 'function') initScrollReveal();
+}
+
+function openLightbox(item) {
+  if (!item) return;
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightboxImg');
+
+  if (item.image) {
+    img.src = item.image;
+    img.alt = item.title;
+  } else {
+    // Generate Canvas preview for placeholder item
+    const canvas = document.createElement('canvas');
+    canvas.width = 800; canvas.height = 500;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createLinearGradient(0, 0, 800, 500);
+    grad.addColorStop(0, '#0f3460'); grad.addColorStop(1, '#2563eb');
+    ctx.fillStyle = grad; ctx.fillRect(0,0,800,500);
+    ctx.fillStyle = 'rgba(255,255,255,.15)'; ctx.font = 'bold 96px serif';
+    ctx.textAlign = 'center'; ctx.fillText(item.icon || '🛠️', 400, 260);
+    ctx.fillStyle = '#ffffff'; ctx.font = 'bold 22px sans-serif';
+    ctx.fillText(item.title, 400, 340);
+    ctx.fillStyle = 'rgba(255,255,255,.75)'; ctx.font = '16px sans-serif';
+    ctx.fillText(item.description ? item.description.substring(0, 60) + '...' : item.category, 400, 380);
+    img.src = canvas.toDataURL();
+    img.alt = item.title;
+  }
+
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('lightboxClose').addEventListener('click', () => {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+});
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === e.currentTarget) {
+    e.currentTarget.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+// Category Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentCategoryFilter = btn.dataset.filter;
+    renderGallery();
+  });
+});
+
+// Work Type Filter Tabs (Past vs Upcoming)
+document.querySelectorAll('.type-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentTypeFilter = tab.dataset.type;
+    renderGallery();
+  });
+});
+
+// ── CLIENT MODAL & FILE UPLOAD LOGIC ──
+const modalOverlay = document.getElementById('worksModalOverlay');
+const openModalBtn = document.getElementById('openWorksModalBtn');
+const closeModalBtn = document.getElementById('closeWorksModalBtn');
+const dropzoneBox = document.getElementById('dropzoneBox');
+const photoFileInput = document.getElementById('photoFileInput');
+const photoUrlInput = document.getElementById('photoUrlInput');
+const imagePreviewBox = document.getElementById('imagePreviewBox');
+const imagePreviewImg = document.getElementById('imagePreviewImg');
+const addWorkForm = document.getElementById('addWorkForm');
+const manageWorksList = document.getElementById('manageWorksList');
+const worksCountEl = document.getElementById('worksCount');
+const resetDefaultsBtn = document.getElementById('resetDefaultsBtn');
+
+function openModal() {
+  modalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderManageList();
+}
+function closeModal() {
+  modalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+  addWorkForm.reset();
+  uploadedBase64Image = '';
+  imagePreviewBox.classList.remove('show');
+}
+
+openModalBtn.addEventListener('click', openModal);
+closeModalBtn.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', e => {
+  if (e.target === modalOverlay) closeModal();
+});
+
+// Dropzone file picker
+dropzoneBox.addEventListener('click', () => photoFileInput.click());
+dropzoneBox.addEventListener('dragover', e => {
+  e.preventDefault();
+  dropzoneBox.style.borderColor = 'var(--blue-600)';
+});
+dropzoneBox.addEventListener('dragleave', () => {
+  dropzoneBox.style.borderColor = 'var(--blue-300)';
+});
+dropzoneBox.addEventListener('drop', e => {
+  e.preventDefault();
+  dropzoneBox.style.borderColor = 'var(--blue-300)';
+  if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+    handleFile(e.dataTransfer.files[0]);
+  }
+});
+
+photoFileInput.addEventListener('change', e => {
+  if (e.target.files && e.target.files[0]) {
+    handleFile(e.target.files[0]);
+  }
+});
+
+function handleFile(file) {
+  if (!file.type.startsWith('image/')) {
+    alert('Please select a valid image file (PNG, JPG, WEBP).');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    uploadedBase64Image = evt.target.result;
+    imagePreviewImg.src = uploadedBase64Image;
+    imagePreviewBox.classList.add('show');
+    photoUrlInput.value = '';
+  };
+  reader.readAsDataURL(file);
+}
+
+photoUrlInput.addEventListener('input', () => {
+  if (photoUrlInput.value.trim()) {
+    uploadedBase64Image = photoUrlInput.value.trim();
+    imagePreviewImg.src = uploadedBase64Image;
+    imagePreviewBox.classList.add('show');
+  } else {
+    imagePreviewBox.classList.remove('show');
+  }
+});
+
+// Form Submission
+addWorkForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const title = document.getElementById('workTitle').value.trim();
+  const type = document.getElementById('workType').value;
+  const category = document.getElementById('workCategory').value;
+  const description = document.getElementById('workDescription').value.trim();
+  const date = document.getElementById('workDate').value;
+  const finalImage = uploadedBase64Image || photoUrlInput.value.trim();
+
+  if (!title) {
+    alert('Please enter a work title');
+    return;
+  }
+
+  window.WorksManager.addWork({
+    title,
+    type,
+    category,
+    description,
+    date,
+    image: finalImage
+  });
+
+  addWorkForm.reset();
+  uploadedBase64Image = '';
+  imagePreviewBox.classList.remove('show');
+
+  renderGallery();
+  renderManageList();
+  alert('✨ Photo successfully added to works gallery!');
+});
+
+function renderManageList() {
+  const works = window.WorksManager ? window.WorksManager.getWorks() : [];
+  worksCountEl.textContent = works.length;
+
+  if (works.length === 0) {
+    manageWorksList.innerHTML = `<div style="font-size:0.85rem;color:var(--gray-500);text-align:center;padding:12px">No photos found.</div>`;
+    return;
+  }
+
+  manageWorksList.innerHTML = works.map(w => `
+    <div class="manage-item-row">
+      <div class="manage-item-info">
+        ${w.image ? `<img src="${w.image}" class="manage-item-thumb" alt="${w.title}" />` : `<div class="manage-item-thumb">${w.icon || '🛠️'}</div>`}
+        <div style="overflow:hidden">
+          <div class="manage-item-text">${w.title}</div>
+          <div class="manage-item-meta">${w.type === 'upcoming' ? '📅 Upcoming Work' : '🏆 Past Work'} • ${w.category}</div>
+        </div>
+      </div>
+      <button class="btn-delete-item" data-id="${w.id}">🗑️ Delete</button>
+    </div>`).join('');
+
+  manageWorksList.querySelectorAll('.btn-delete-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (confirm('Are you sure you want to delete this photo item?')) {
+        window.WorksManager.deleteWork(btn.dataset.id);
+        renderGallery();
+        renderManageList();
+      }
+    });
+  });
+}
+
+resetDefaultsBtn.addEventListener('click', () => {
+  if (confirm('Reset to original sample photos? Any custom photos added will be replaced.')) {
+    window.WorksManager.resetDefaults();
+    renderGallery();
+    renderManageList();
+  }
+});
+
+// Set default date picker to today
+document.getElementById('workDate').value = new Date().toISOString().split('T')[0];
+
+// Safe init: DOM is already ready when this inline script runs at bottom of <body>
+// Use DOMContentLoaded only as a safety net for very fast load edge cases
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', renderGallery);
+} else {
+  renderGallery();
+}
+</script>
+</body>
+</html>
+

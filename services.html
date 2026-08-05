@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Washing Machine Repair Services | IFB Service Center Anantapur</title>
+  <meta name="description" content="Expert washing machine repair in Anantapur — IFB, LG, Samsung, Whirlpool, Godrej, Bosch. Front load, top load, semi-auto. Certified technicians, genuine parts, 90-day warranty." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/fixes.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .service-detail-card { scroll-margin-top: 90px; }
+    .amc-plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 1.5rem; }
+    .amc-plan {
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      padding: 24px 20px;
+      text-align: center;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    .amc-plan:hover, .amc-plan.popular { border-color: var(--blue-500); box-shadow: 0 4px 16px rgba(37,99,235,.12); }
+    .amc-plan.popular { background: var(--blue-50); position: relative; }
+    .popular-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--orange-500); color: #fff; font-size: .7rem; font-weight: 700;
+      padding: .2rem .8rem; border-radius: 50px; white-space: nowrap;
+    }
+    .amc-price { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; color: var(--blue-700); margin: .6rem 0 .2rem; }
+    .amc-unit { font-size: .78rem; color: var(--gray-500); }
+    .amc-features { margin-top: .8rem; font-size: .83rem; color: var(--gray-600); }
+    .amc-features li { padding: .25rem 0; border-bottom: 1px solid var(--gray-100); }
+    .amc-features li:last-child { border: none; }
+  </style>
+</head>
+<body>
+
+<header id="site-header" role="banner"></header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a> <span>›</span> <span>Services</span>
+    </nav>
+    <h1>Washing Machine Repair</h1>
+    <p>All brands, all models — IFB, LG, Samsung, Whirlpool, Godrej, Bosch — genuine parts and a 90-day warranty.</p>
+  </div>
+</div>
+
+<!-- QUICK NAV & ADMIN BUTTON -->
+<div style="background:var(--blue-50);border-bottom:1px solid var(--blue-100);padding:.75rem 0;position:sticky;top:72px;z-index:100">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">
+    <div id="servicesQuickNav" style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+      <!-- Injected dynamically by JS -->
+    </div>
+    <button class="btn-add-services" id="openServicesModalBtn">
+      <i data-lucide="plus-circle"></i> ➕ Add / Manage Services
+    </button>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="service-detail-grid" id="servicesDetailGrid">
+      <!-- Injected dynamically by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- CLIENT SERVICES MANAGER MODAL -->
+<div class="works-modal-overlay" id="servicesModalOverlay" role="dialog" aria-modal="true" aria-labelledby="servicesModalTitle">
+  <div class="works-modal">
+    <div class="works-modal-header">
+      <h3 id="servicesModalTitle">🛠️ Client Custom Services Manager</h3>
+      <button class="works-modal-close" id="closeServicesModalBtn" aria-label="Close modal">✕</button>
+    </div>
+    <div class="works-modal-body">
+      <form id="addServiceForm">
+        <div class="form-group">
+          <label class="form-label" for="serviceTitle">Service Name / Title *</label>
+          <input type="text" id="serviceTitle" class="form-control" placeholder="e.g. Microwave &amp; OTG Oven Repair" required />
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label class="form-label" for="serviceIcon">Service Icon (Emoji) *</label>
+            <input type="text" id="serviceIcon" class="form-control" placeholder="e.g. 🍿, ☀️, 💧, 🫧, ❄️, 🧊" value="🛠️" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="servicePriceRange">Price Range *</label>
+            <input type="text" id="servicePriceRange" class="form-control" placeholder="e.g. ₹299 – ₹1,800" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="serviceDescription">Service Description *</label>
+          <textarea id="serviceDescription" class="form-control" rows="3" placeholder="Describe the service, brands covered, technician qualifications..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="serviceIssues">Common Issues Fixed (Comma separated)</label>
+          <input type="text" id="serviceIssues" class="form-control" placeholder="e.g. Touchpad not responding, Heating failure, Magnetron issue, Door seal damage" />
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full" style="padding:10px 16px;font-size:0.95rem">
+          ✨ Add Service to Website
+        </button>
+      </form>
+
+      <!-- Manage & Delete Existing Services List -->
+      <div class="manage-list-section">
+        <div class="manage-list-title">
+          <span>Active Services (<span id="servicesCount">0</span>)</span>
+          <button type="button" id="resetDefaultServicesBtn" style="background:none;border:none;color:var(--blue-600);font-size:0.78rem;cursor:pointer;text-decoration:underline">Reset Sample Defaults</button>
+        </div>
+        <div id="manageServicesList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <div class="container">
+    <span class="section-label" style="color:var(--orange-400)">Book Today</span>
+    <h2>Not Sure Which Service You Need?</h2>
+    <p>Just call or WhatsApp us — we'll diagnose your appliance and recommend the right fix, honestly.</p>
+    <div class="cta-buttons">
+      <a href="tel:+919133576669" class="btn btn-primary btn-lg">📞 Call Now</a>
+      <a href="https://wa.me/919133576669" target="_blank" rel="noopener" class="btn btn-outline-white btn-lg">💬 WhatsApp Us</a>
+    </div>
+  </div>
+</div>
+
+<footer id="site-footer" role="contentinfo"></footer>
+<script src="js/main.js"></script>
+<script src="js/services-manager.js"></script>
+<script>
+function renderServicesPage() {
+  const quickNav = document.getElementById('servicesQuickNav');
+  const grid = document.getElementById('servicesDetailGrid');
+  const services = window.ServicesManager ? window.ServicesManager.getServices() : [];
+
+  if (services.length === 0) {
+    grid.innerHTML = `
+      <div style="text-align:center;padding:40px 20px;background:var(--gray-50);border-radius:var(--radius-md);border:1px dashed var(--gray-300)">
+        <div style="font-size:2.5rem;margin-bottom:0.5rem">🛠️</div>
+        <div style="font-weight:600;color:var(--gray-700)">No services found</div>
+        <div style="font-size:0.85rem;color:var(--gray-500);margin-top:0.2rem">Click "+ Add / Manage Services" above to add new repair services.</div>
+      </div>`;
+    quickNav.innerHTML = '';
+    return;
+  }
+
+  // Render quick nav buttons
+  quickNav.innerHTML = services.map(s => `
+    <a href="#${s.id}" class="btn btn-sm btn-secondary" style="padding:.35rem .9rem;font-size:.8rem">
+      ${s.icon} ${s.title}
+    </a>`).join('');
+
+  // Render service cards
+  grid.innerHTML = services.map(s => {
+    const issuesHtml = (s.issues || []).map(tag => `<span class="issue-tag">${tag}</span>`).join('');
+    
+    let pricingHtml = '';
+    if (Array.isArray(s.pricing) && s.pricing.length > 0) {
+      pricingHtml = `
+        <h4>Pricing (Approximate)</h4>
+        <div style="font-size:.88rem;color:var(--gray-600);margin-bottom:1.5rem">
+          ${s.pricing.map(p => `
+            <div style="display:flex;justify-content:space-between;padding:.35rem 0;border-bottom:1px solid var(--gray-100)">
+              <span>${p.name}</span>
+              <span style="font-weight:600;color:var(--gray-800)">${p.cost}</span>
+            </div>`).join('')}
+        </div>`;
+    }
+
+      <div class="service-detail-card reveal" id="${s.id}">
+        <div class="service-detail-img" style="position:relative;overflow:hidden;background:var(--blue-900);">
+          ${s.image ? `<img src="${s.image}" alt="${s.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.4;z-index:0;transition:transform 0.4s ease" />` : ''}
+          <div style="position:relative;z-index:1">
+            <div class="big-icon">${s.icon || '🛠️'}</div>
+            <h3>${s.title}</h3>
+            <div class="price-range">${s.priceRange}</div>
+          </div>
+        </div>
+        <div class="service-detail-body">
+          <p style="margin-bottom:1rem;color:var(--gray-600)">${s.description}</p>
+          ${s.issues && s.issues.length ? `<h4>Common Issues We Fix</h4><div class="issues-list">${issuesHtml}</div>` : ''}
+          ${pricingHtml}
+          <a href="contact.html?service=${s.id}" class="btn btn-primary">Request This Service →</a>
+        </div>
+      </div>`;
+  }).join('');
+
+  if (typeof initScrollReveal === 'function') initScrollReveal();
+}
+
+// ── CLIENT SERVICES MODAL LOGIC ──
+const servicesModalOverlay = document.getElementById('servicesModalOverlay');
+const openServicesModalBtn = document.getElementById('openServicesModalBtn');
+const closeServicesModalBtn = document.getElementById('closeServicesModalBtn');
+const addServiceForm = document.getElementById('addServiceForm');
+const manageServicesList = document.getElementById('manageServicesList');
+const servicesCountEl = document.getElementById('servicesCount');
+const resetDefaultServicesBtn = document.getElementById('resetDefaultServicesBtn');
+
+function openServicesModal() {
+  servicesModalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderManageServicesList();
+}
+
+function closeServicesModal() {
+  servicesModalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+  addServiceForm.reset();
+}
+
+openServicesModalBtn.addEventListener('click', openServicesModal);
+closeServicesModalBtn.addEventListener('click', closeServicesModal);
+servicesModalOverlay.addEventListener('click', e => {
+  if (e.target === servicesModalOverlay) closeServicesModal();
+});
+
+addServiceForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const title = document.getElementById('serviceTitle').value.trim();
+  const icon = document.getElementById('serviceIcon').value.trim();
+  const priceRange = document.getElementById('servicePriceRange').value.trim();
+  const description = document.getElementById('serviceDescription').value.trim();
+  const issues = document.getElementById('serviceIssues').value.trim();
+
+  if (!title || !description) {
+    alert('Please enter service name and description.');
+    return;
+  }
+
+  window.ServicesManager.addService({
+    title,
+    icon,
+    priceRange,
+    description,
+    issues
+  });
+
+  addServiceForm.reset();
+  renderServicesPage();
+  renderManageServicesList();
+  alert('✨ Custom Service successfully added to the website!');
+});
+
+function renderManageServicesList() {
+  const services = window.ServicesManager ? window.ServicesManager.getServices() : [];
+  servicesCountEl.textContent = services.length;
+
+  if (services.length === 0) {
+    manageServicesList.innerHTML = `<div style="font-size:0.85rem;color:var(--gray-500);text-align:center;padding:12px">No services found.</div>`;
+    return;
+  }
+
+  manageServicesList.innerHTML = services.map(s => `
+    <div class="manage-item-row">
+      <div class="manage-item-info">
+        <div class="manage-item-thumb">${s.icon || '🛠️'}</div>
+        <div style="overflow:hidden">
+          <div class="manage-item-text">${s.title}</div>
+          <div class="manage-item-meta">${s.priceRange}</div>
+        </div>
+      </div>
+      <button class="btn-delete-item" data-id="${s.id}">🗑️ Delete</button>
+    </div>`).join('');
+
+  manageServicesList.querySelectorAll('.btn-delete-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (confirm('Are you sure you want to delete this service?')) {
+        window.ServicesManager.deleteService(btn.dataset.id);
+        renderServicesPage();
+        renderManageServicesList();
+      }
+    });
+  });
+}
+
+resetDefaultServicesBtn.addEventListener('click', () => {
+  if (confirm('Reset to standard sample services? Any custom services added will be replaced.')) {
+    window.ServicesManager.resetDefaults();
+    renderServicesPage();
+    renderManageServicesList();
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderServicesPage();
+
+  // Auto-scroll to requested service param from URL
+  const params = new URLSearchParams(location.search);
+  const svc = params.get('service');
+  if (svc) {
+    const el = document.getElementById(svc);
+    if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 400);
+  }
+});
+</script>
+</body>
+</html>
+

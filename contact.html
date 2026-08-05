@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | IFB Service Center Anantapur — Book a Repair</title>
+  <meta name="description" content="Contact IFB Service Center Anantapur to book an appliance repair. Call +91 91335 76669, WhatsApp us, or fill in our contact form for fast response." />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<header id="site-header" role="banner"></header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a> <span>›</span> <span>Contact Us</span>
+    </nav>
+    <h1>Contact &amp; Book a Service</h1>
+    <p>Fill in the form — your message goes straight to our WhatsApp so we can respond instantly.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- Left: Contact Info -->
+      <div>
+        <div class="contact-info-card reveal">
+          <div style="width:100%;height:180px;border-radius:var(--radius-md);overflow:hidden;margin-bottom:1.2rem;">
+            <img src="images/service-center-store.png" alt="IFB Service Center Store Anantapur" style="width:100%;height:100%;object-fit:cover;" />
+          </div>
+          <h3>Get in Touch</h3>
+          <p>We typically respond within 30 minutes during business hours.</p>
+
+          <div class="contact-info-item">
+            <div class="ci-icon">📞</div>
+            <div>
+              <div class="ci-label">Phone (Call / WhatsApp)</div>
+              <div class="ci-value"><a href="tel:+919133576669">+91 91335 76669</a></div>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="ci-icon">✉️</div>
+            <div>
+              <div class="ci-label">Email</div>
+              <div class="ci-value"><a href="mailto:vvsservices91@gmail.com">vvsservices91@gmail.com</a></div>
+            </div>
+          </div>
+
+
+
+          <div class="contact-info-item">
+            <div class="ci-icon">🕐</div>
+            <div>
+              <div class="ci-label">Business Hours</div>
+              <table class="hours-table" aria-label="Business hours">
+                <tr><td>Monday – Saturday</td><td>9:00 AM – 7:00 PM</td></tr>
+                <tr><td>Sunday</td><td>10:00 AM – 2:00 PM</td></tr>
+              </table>
+            </div>
+          </div>
+
+          <!-- Quick action buttons -->
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.5rem">
+            <a href="tel:+919133576669" class="btn btn-primary" style="flex:1;justify-content:center;min-width:130px">
+              📞 Call Now
+            </a>
+            <a href="https://wa.me/919133576669" target="_blank" rel="noopener"
+               class="btn btn-outline-white" style="flex:1;justify-content:center;min-width:130px">
+              💬 WhatsApp
+            </a>
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- Right: Contact Form -->
+      <div class="reveal">
+        <div style="background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:40px">
+          <span class="section-label">Book a Visit</span>
+          <h2 style="font-size:1.5rem;margin-bottom:.3rem;color:var(--gray-900)">Service Request Form</h2>
+          <p style="font-size:.87rem;margin-bottom:2rem">Fill in the details — we'll send it directly to our WhatsApp for fastest response.</p>
+
+          <form id="contactForm" novalidate>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+              <div class="form-group">
+                <label class="form-label" for="contactName">Full Name <span style="color:red">*</span></label>
+                <input type="text" id="contactName" class="form-control" placeholder="Your name" required autocomplete="name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contactPhone">Phone Number <span style="color:red">*</span></label>
+                <input type="tel" id="contactPhone" class="form-control" placeholder="+91 91335 76669" required autocomplete="tel" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactLocation">Service Location / Area in Anantapur <span style="color:red">*</span></label>
+              <div class="location-input-group">
+                <input type="text" id="contactLocation" class="form-control" placeholder="e.g. Subhash Nagar, Old Town, Gooty Road..." required />
+                <button type="button" class="btn-detect-location" id="btnDetectLocation" title="Use GPS to detect your location link">
+                  📍 Detect GPS
+                </button>
+              </div>
+              <div id="locationStatus" style="font-size:0.75rem;margin-top:0.25rem;color:var(--blue-600)"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactAppliance">Appliance Type <span style="color:red">*</span></label>
+              <select id="contactAppliance" class="form-control" required>
+                <option value="">Select appliance</option>
+                <option value="Washing Machine (Front Load)">Washing Machine — Front Load</option>
+                <option value="Washing Machine (Top Load)">Washing Machine — Top Load</option>
+                <option value="Washing Machine (Semi-Auto)">Washing Machine — Semi-Auto</option>
+                <option value="Split AC">Split AC</option>
+                <option value="Window AC">Window AC</option>
+                <option value="Single Door Refrigerator">Single Door Refrigerator</option>
+                <option value="Double Door Refrigerator">Double Door Refrigerator</option>
+                <option value="Side-by-Side Refrigerator">Side-by-Side Refrigerator</option>
+                <option value="Microwave / OTG">Microwave / OTG</option>
+                <option value="New Installation">New Installation</option>
+                <option value="AMC Plan">Annual Maintenance (AMC)</option>
+                <option value="Other Appliance">Other Appliance</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactIssue">Describe the Issue <span style="color:red">*</span></label>
+              <textarea id="contactIssue" class="form-control" placeholder="e.g. Washing machine not spinning, making loud noise since 2 days..." required rows="3"></textarea>
+            </div>
+
+            <!-- Attach Issue Photo Field -->
+            <div class="form-group">
+              <label class="form-label">Attach Photo of Problem (Optional)</label>
+              <div class="photo-upload-zone" id="contactPhotoZone">
+                <div class="upload-icon">📷</div>
+                <div class="upload-text">Click or drag &amp; drop photo of problem</div>
+                <div class="upload-hint">Snap a photo of the error code, leaking part, or appliance model label</div>
+                <input type="file" id="contactPhotoInput" accept="image/*" style="display:none" />
+              </div>
+              <div class="photo-preview-container" id="contactPhotoPreview" style="display:none">
+                <img id="contactPhotoImg" src="" alt="Issue photo preview" />
+                <button type="button" class="btn-remove-photo" id="btnRemoveContactPhoto" title="Remove photo">✕</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactTime">Preferred Service Time</label>
+              <select id="contactTime" class="form-control">
+                <option value="As soon as possible">As soon as possible</option>
+                <option value="Today morning (9 AM – 12 PM)">Today morning (9 AM – 12 PM)</option>
+                <option value="Today afternoon (12 PM – 4 PM)">Today afternoon (12 PM – 4 PM)</option>
+                <option value="Today evening (4 PM – 7 PM)">Today evening (4 PM – 7 PM)</option>
+                <option value="Tomorrow morning">Tomorrow morning</option>
+                <option value="Tomorrow afternoon">Tomorrow afternoon</option>
+                <option value="On weekend">On weekend</option>
+              </select>
+            </div>
+
+            <button type="submit" id="contactSubmit" class="btn btn-primary btn-lg w-full" style="justify-content:center;margin-top:.5rem">
+              💬 Send via WhatsApp →
+            </button>
+
+            <p style="font-size:.78rem;color:var(--gray-400);text-align:center;margin-top:.8rem">
+              Your message will open in WhatsApp — tap Send to confirm.
+            </p>
+          </form>
+
+          <div class="success-msg" id="contactSuccess">
+            ✅ Opening WhatsApp now... If it doesn't open automatically, please call <a href="tel:+919133576669" style="color:var(--green-600);font-weight:600">+91 91335 76669</a>.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Quick Contact Strip -->
+<section class="alt" aria-label="Alternative contact methods">
+  <div class="container">
+    <div class="section-head center">
+      <span class="section-label">Other Ways to Reach Us</span>
+      <h2 class="section-title">Prefer a Direct Call?</h2>
+      <div class="divider center"></div>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal" style="text-align:center">
+        <div class="why-icon">📞</div>
+        <h4>Call Us</h4>
+        <p style="margin-bottom:.7rem">Speak directly with our team for quick answers.</p>
+        <a href="tel:+919133576669" class="btn btn-blue btn-sm">+91 91335 76669</a>
+      </div>
+      <div class="why-card reveal" style="text-align:center">
+        <div class="why-icon">💬</div>
+        <h4>WhatsApp</h4>
+        <p style="margin-bottom:.7rem">Send photos of the issue — fastest diagnosis possible.</p>
+        <a href="https://wa.me/919133576669" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Open WhatsApp</a>
+      </div>
+      <div class="why-card reveal" style="text-align:center">
+        <div class="why-icon">✉️</div>
+        <h4>Email</h4>
+        <p style="margin-bottom:.7rem">For AMC inquiries and bulk service requests.</p>
+        <a href="mailto:vvsservices91@gmail.com" class="btn btn-secondary btn-sm">Send Email</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer" role="contentinfo"></footer>
+
+<script src="js/main.js"></script>
+<script src="js/services-manager.js"></script>
+<script src="js/contact.js"></script>
+<script>
+  // Populate appliance options dynamically from ServicesManager
+  function populateApplianceSelect() {
+    const sel = document.getElementById('contactAppliance');
+    if (!sel || !window.ServicesManager) return;
+    
+    const customServices = window.ServicesManager.getServices();
+    if (!customServices.length) return;
+
+    // Retain default option
+    const firstOpt = '<option value="">Select appliance service</option>';
+    const serviceOpts = customServices.map(s => `<option value="${s.title}">${s.icon} ${s.title}</option>`).join('');
+    const extraOpts = `
+      <option value="Other Appliance">Other Appliance</option>`;
+    
+    sel.innerHTML = firstOpt + serviceOpts + extraOpts;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    populateApplianceSelect();
+
+    // Pre-select service from URL param
+    const params = new URLSearchParams(location.search);
+    const svc = params.get('service');
+    if (!svc) return;
+    const sel = document.getElementById('contactAppliance');
+    if (!sel) return;
+
+    const customServices = window.ServicesManager ? window.ServicesManager.getServices() : [];
+    const matchedService = customServices.find(s => s.id === svc || s.id.startsWith(svc));
+
+    if (matchedService) {
+      for (let opt of sel.options) {
+        if (opt.value === matchedService.title) { opt.selected = true; break; }
+      }
+    }
+  });
+</script>
+</body>
+</html>
