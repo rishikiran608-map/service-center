@@ -617,6 +617,7 @@ function handleOwnerTrigger() {
 }
 
 secretTrigger.addEventListener('click', handleOwnerTrigger);
+openModalBtn.addEventListener('click', handleOwnerTrigger);
 pwdUnlockBtn.addEventListener('click', checkOwnerPassword);
 pwdCancelBtn.addEventListener('click', closePwdModal);
 pwdInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkOwnerPassword(); });
