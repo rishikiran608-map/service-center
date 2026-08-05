@@ -622,50 +622,38 @@ select.form-control{appearance:none;cursor:pointer}
         <p class="section-sub">Expert technicians handle all major home appliances with speed and precision.</p>
       </div>
       <div class="service-grid">
-        <div class="svc-card reveal" onclick="navigate('services','washing-machine')">
+        <div class="svc-card reveal" onclick="navigate('services','front-load')">
           <div class="svc-card-img-wrap">
-            <img src="images/service-washing-machine.png" alt="Washing Machine Repair" />
+            <img src="images/service-washing-machine.png" alt="Front Load Washing Machine Repair" />
             <div class="svc-card-icon-badge">🫧</div>
           </div>
           <div class="svc-card-body">
-            <h3>Washing Machine Repair</h3>
-            <p>Front load, top load, semi-auto — IFB, LG, Samsung &amp; all brands. Drum, motor, PCB fixes.</p>
+            <h3>Front Load Repair</h3>
+            <p>Specialized repair for IFB, LG, Samsung, Bosch &amp; Whirlpool front load machines. Drum, bearing, PCB fixes.</p>
             <span class="svc-link">View details →</span>
           </div>
         </div>
 
-        <div class="svc-card reveal" onclick="navigate('services','ac')">
+        <div class="svc-card reveal" onclick="navigate('services','top-load')">
           <div class="svc-card-img-wrap">
-            <img src="images/service-ac-repair.png" alt="AC Repair & Gas Refill" />
-            <div class="svc-card-icon-badge">❄️</div>
+            <img src="images/justdial/photo5.jpg" alt="Top Load & Semi-Auto Repair" />
+            <div class="svc-card-icon-badge">🫧</div>
           </div>
           <div class="svc-card-body">
-            <h3>AC Repair &amp; Gas Refill</h3>
-            <p>Split &amp; Window AC service, jet pump coil washing, R32/R410A gas refill &amp; compressor fix.</p>
-            <span class="svc-link">View details →</span>
-          </div>
-        </div>
-
-        <div class="svc-card reveal" onclick="navigate('services','refrigerator')">
-          <div class="svc-card-img-wrap">
-            <img src="images/service-refrigerator.png" alt="Refrigerator Repair" />
-            <div class="svc-card-icon-badge">🧊</div>
-          </div>
-          <div class="svc-card-body">
-            <h3>Refrigerator Repair</h3>
-            <p>Single &amp; Double Door, Inverter Fridge compressor replacement, defrost timer &amp; cooling fix.</p>
+            <h3>Top Load &amp; Semi-Auto Repair</h3>
+            <p>Gearbox, spin motor, agitator, and drain valve repair for top load and semi-automatic washing machines.</p>
             <span class="svc-link">View details →</span>
           </div>
         </div>
 
         <div class="svc-card reveal" onclick="navigate('services','installation')">
           <div class="svc-card-img-wrap">
-            <img src="images/hero-technician.png" alt="Installation & Unboxing" />
+            <img src="images/hero-technician.png" alt="Installation & Relocation" />
             <div class="svc-card-icon-badge">🔩</div>
           </div>
           <div class="svc-card-body">
-            <h3>Installation &amp; Unboxing</h3>
-            <p>Professional unboxing, wall mounting, plumbing connection, leveling &amp; testing.</p>
+            <h3>Installation &amp; Relocation</h3>
+            <p>Unboxing, transit bolt removal, tap plumbing, machine leveling &amp; anti-vibration setup.</p>
             <span class="svc-link">View details →</span>
           </div>
         </div>
@@ -676,8 +664,8 @@ select.form-control{appearance:none;cursor:pointer}
             <div class="svc-card-icon-badge">🛡️</div>
           </div>
           <div class="svc-card-body">
-            <h3>AMC Maintenance Plan</h3>
-            <p>Year-round appliance protection, 2 free wet services per year &amp; 15% off spare parts.</p>
+            <h3>Washing Machine AMC Plan</h3>
+            <p>Year-round washing machine care, 2 free preventive visits, descaling &amp; 15% off spare parts.</p>
             <span class="svc-link">View details →</span>
           </div>
         </div>
@@ -1947,10 +1935,10 @@ const GALLERY_ITEMS = [
   { cat:'washing-machine', img:'images/justdial/photo4.jpg', label:'IFB Care — Authorized Service Partner', bg:'linear-gradient(135deg,#7f1d1d,#dc2626)' },
   { cat:'washing-machine', img:'images/justdial/photo5.jpg', label:'IFB Elite Aqua SX — Front Load Washing Machine', bg:'linear-gradient(135deg,#854d0e,#eab308)' },
   { cat:'washing-machine', img:'images/service-washing-machine.png', label:'IFB Front Load — Drum Bearing Replacement', bg:'linear-gradient(135deg,#0f3460,#2563eb)' },
-  { cat:'ac',              img:'images/service-ac-repair.png', label:'LG Split AC — Gas Refill & Deep Coil Cleaning', bg:'linear-gradient(135deg,#0d2247,#1a4d8f)' },
-  { cat:'refrigerator',    img:'images/service-refrigerator.png', label:'Samsung Double Door — Compressor Replacement', bg:'linear-gradient(135deg,#0a2744,#0f5f8a)' },
+  { cat:'washing-machine', img:'images/service-washing-machine.png', label:'Top Load Washing Machine — Gearbox & Pulsator Repair', bg:'linear-gradient(135deg,#0d2247,#1a4d8f)' },
+  { cat:'washing-machine', img:'images/service-washing-machine.png', label:'Semi-Auto Machine — Motor Rewinding & Spin Tub Fix', bg:'linear-gradient(135deg,#0a2744,#0f5f8a)' },
   { cat:'installation',    img:'images/hero-technician.png', label:'IFB Machine — Wall Mount & Anti-Vibration Setup', bg:'linear-gradient(135deg,#1c3a1a,#2d6a28)' },
-  { cat:'ac',              img:'images/service-center-store.png', label:'Daikin AC — Outdoor Fan Motor Replacement', bg:'linear-gradient(135deg,#3a1a0a,#c05a10)' }
+  { cat:'installation',    img:'images/service-center-store.png', label:'Washing Machine AMC — Annual Care & Tub Descaling Drive', bg:'linear-gradient(135deg,#3a1a0a,#c05a10)' }
 ];
 
 function renderGallery(filter) {
@@ -2062,10 +2050,8 @@ navigate(PAGES.includes(initPage) ? initPage : 'home');
           <div class="form-group">
             <label class="form-label" for="workCategory">Appliance Category *</label>
             <select id="workCategory" class="form-control" required>
-              <option value="washing-machine">Washing Machine</option>
-              <option value="ac">AC Repair</option>
-              <option value="refrigerator">Refrigerator</option>
-              <option value="installation">Installation</option>
+              <option value="washing-machine">Washing Machine Repair</option>
+              <option value="installation">Installation &amp; Relocation</option>
             </select>
           </div>
         </div>

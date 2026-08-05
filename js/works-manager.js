@@ -1,9 +1,7 @@
 /* =========================================================
    IFB Service Center Anantapur — works-manager.js
    Manages Past Works & Upcoming Works photo gallery & client photo uploads
-   ========================================================= */
-
-const STORAGE_KEY = 'ifb_works_photos_v2';
+   ========================================================= */const STORAGE_KEY = 'ifb_works_photos_v4';
 
 const DEFAULT_WORKS = [
   {
@@ -11,7 +9,7 @@ const DEFAULT_WORKS = [
     title: 'Our IFB Certified Technician — Ready for Doorstep Service',
     category: 'washing-machine',
     type: 'past',
-    description: 'Meet our IFB-trained technician, always in uniform and ready with tools for on-site appliance repair.',
+    description: 'Meet our IFB-trained technician, always in uniform and ready with tools for on-site washing machine repair.',
     date: '2024-02-07',
     icon: '🫧',
     bg: 'linear-gradient(135deg, #0f3460, #2563eb)',
@@ -22,7 +20,7 @@ const DEFAULT_WORKS = [
     title: 'Genuine IFB Spare Parts — Always in Stock',
     category: 'washing-machine',
     type: 'past',
-    description: 'We keep genuine IFB spare parts ready at our center for fast same-day repairs.',
+    description: 'We keep genuine IFB washing machine spare parts ready at our center for fast same-day repairs.',
     date: '2024-02-07',
     icon: '🫧',
     bg: 'linear-gradient(135deg, #1a0533, #6a29a8)',
@@ -33,7 +31,7 @@ const DEFAULT_WORKS = [
     title: 'Our Service Center Office — Anantapur',
     category: 'installation',
     type: 'past',
-    description: 'Inside our service center office — where we manage bookings, parts inventory, and customer support.',
+    description: 'Inside our service center office — where we manage bookings, washing machine parts inventory, and support.',
     date: '2024-03-04',
     icon: '🔩',
     bg: 'linear-gradient(135deg, #1c3a1a, #2d6a28)',
@@ -44,7 +42,7 @@ const DEFAULT_WORKS = [
     title: 'IFB Care — Authorized Service Partner',
     category: 'washing-machine',
     type: 'past',
-    description: 'We are a registered IFB Care service partner — trusted for quality repairs with genuine parts.',
+    description: 'We are a registered IFB Care service partner — trusted for quality washing machine repairs with genuine parts.',
     date: '2024-01-15',
     icon: '🫧',
     bg: 'linear-gradient(135deg, #7f1d1d, #dc2626)',
@@ -74,32 +72,32 @@ const DEFAULT_WORKS = [
   },
   {
     id: 'work-2',
-    title: 'Upcoming: Free AC Health Inspection Camp — Anantapur Town',
-    category: 'ac',
+    title: 'Upcoming: Monsoon Washing Machine Care Camp — Anantapur Town',
+    category: 'washing-machine',
     type: 'upcoming',
-    description: 'Upcoming multi-point AC checkup camp covering cooling efficiency, gas pressure & electrical safety.',
+    description: 'Upcoming multi-point washing machine checkup camp covering drum descaling, drain pump flush & electrical safety.',
     date: '2026-08-10',
     icon: '📅',
     bg: 'linear-gradient(135deg, #1e3a8a, #3b82f6)',
-    image: 'images/service-ac-repair.png'
+    image: 'images/service-washing-machine.png'
   },
   {
     id: 'work-3',
-    title: 'LG Split AC — R32 Gas Refill & Deep Coil Cleaning',
-    category: 'ac',
+    title: 'LG Top Load — Gearbox & Pulsator Replacement',
+    category: 'washing-machine',
     type: 'past',
-    description: 'Resolved cooling issues by restoring refrigerant pressure and pressure-cleaning condenser coils.',
+    description: 'Fixed tub rotation issue by installing genuine LG clutch assembly and replacing worn pulsator.',
     date: '2026-07-18',
-    icon: '❄️',
+    icon: '🫧',
     bg: 'linear-gradient(135deg, #0d2247, #1a4d8f)',
-    image: 'images/service-ac-repair.png'
+    image: 'images/service-washing-machine.png'
   },
   {
     id: 'work-4',
-    title: 'Upcoming: Monsoon Washing Machine Care Drive',
+    title: 'Upcoming: Free Tub Descaling Drive',
     category: 'washing-machine',
     type: 'upcoming',
-    description: 'Special upcoming service drive for moisture protection, door seal cleaning & inlet filter flushing.',
+    description: 'Special upcoming service drive for drum lime scale removal, door seal cleaning & inlet filter flushing.',
     date: '2026-08-15',
     icon: '🫧',
     bg: 'linear-gradient(135deg, #311042, #7c3aed)',
@@ -107,14 +105,14 @@ const DEFAULT_WORKS = [
   },
   {
     id: 'work-5',
-    title: 'Samsung Double Door — Inverter Compressor Swap',
-    category: 'refrigerator',
+    title: 'Samsung Front Load — PCB Control Board Repair',
+    category: 'washing-machine',
     type: 'past',
-    description: 'Installed genuine digital inverter compressor with complete nitrogen flushing & gas recharge.',
+    description: 'Diagnosed power trip error on main control circuit. Repaired micro-controller and tested for 3 full cycles.',
     date: '2026-07-12',
-    icon: '🧊',
+    icon: '🫧',
     bg: 'linear-gradient(135deg, #0a2744, #0f5f8a)',
-    image: 'images/service-refrigerator.png'
+    image: 'images/service-washing-machine.png'
   },
   {
     id: 'work-6',
@@ -129,46 +127,13 @@ const DEFAULT_WORKS = [
   },
   {
     id: 'work-7',
-    title: 'Upcoming: Commercial Refrigerator AMC Maintenance Project',
-    category: 'refrigerator',
-    type: 'upcoming',
-    description: 'Scheduled preventive maintenance drive for hotel & restaurant commercial refrigeration units.',
-    date: '2026-08-20',
-    icon: '🧊',
-    bg: 'linear-gradient(135deg, #064e3b, #10b981)',
-    image: 'images/service-refrigerator.png'
-  },
-  {
-    id: 'work-8',
-    title: 'IFB Executive Washing Machine — PCB Repair',
-    category: 'washing-machine',
-    type: 'past',
-    description: 'Diagnosed and fixed power circuit error on main control board. Tested for 3 full cycles.',
-    date: '2026-06-28',
-    icon: '🫧',
-    bg: 'linear-gradient(135deg, #1a0533, #6a29a8)',
-    image: 'images/service-washing-machine.png'
-  },
-  {
-    id: 'work-9',
-    title: 'Daikin 1.5 Ton AC — Outdoor Fan Motor Replacement',
-    category: 'ac',
-    type: 'past',
-    description: 'Replaced jammed outdoor condenser fan motor and run capacitor. Restored instant cooling.',
-    date: '2026-06-22',
-    icon: '❄️',
-    bg: 'linear-gradient(135deg, #3a1a0a, #c05a10)',
-    image: 'images/service-ac-repair.png'
-  },
-  {
-    id: 'work-10',
-    title: 'Upcoming: Multi-Split AC Installation Project in New Apartments',
+    title: 'Upcoming: Apartment Complex AMC Maintenance Drive',
     category: 'installation',
     type: 'upcoming',
-    description: 'New upcoming installation project of 12 multi-split AC units with concealed copper piping.',
-    date: '2026-09-01',
-    icon: '🔩',
-    bg: 'linear-gradient(135deg, #78350f, #d97706)',
+    description: 'Scheduled annual preventive maintenance drive for residential washing machine AMC plan holders.',
+    date: '2026-08-20',
+    icon: '🛡️',
+    bg: 'linear-gradient(135deg, #064e3b, #10b981)',
     image: 'images/service-center-store.png'
   }
 ];
@@ -220,7 +185,7 @@ const WorksManager = {
       type: item.type || 'past',
       description: item.description || '',
       date: item.date || new Date().toISOString().split('T')[0],
-      icon: item.type === 'upcoming' ? '📅' : (item.category === 'ac' ? '❄️' : (item.category === 'refrigerator' ? '🧊' : (item.category === 'installation' ? '🔩' : '🫧'))),
+      icon: item.type === 'upcoming' ? '📅' : (item.category === 'installation' ? '🔩' : '🫧'),
       bg: item.type === 'upcoming' ? 'linear-gradient(135deg, #1e3a8a, #0284c7)' : 'linear-gradient(135deg, #0f3460, #2563eb)',
       image: item.image || ''
     };

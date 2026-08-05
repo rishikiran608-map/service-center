@@ -3,63 +3,49 @@
    Manages client custom services, default services, and localStorage persistence
    ========================================================= */
 
-const SERVICES_STORAGE_KEY = 'ifb_custom_services_v1';
+const SERVICES_STORAGE_KEY = 'ifb_custom_services_v2';
 
 const DEFAULT_SERVICES = [
   {
-    id: 'washing-machine',
-    title: 'Washing Machine Repair',
+    id: 'front-load',
+    title: 'Front Load Washing Machine Repair',
     icon: '🫧',
     image: 'images/service-washing-machine.png',
     priceRange: '₹299 – ₹3,500',
-    description: 'We service all washing machine types — IFB, LG, Samsung, Whirlpool, Godrej, Bosch — front load, top load, and semi-automatic. Our technicians carry common spare parts for same-day fixes.',
-    issues: ['Not spinning', 'Water not draining', 'Drum noise / vibration', 'Door latch broken', 'PCB / control board failure', 'Motor not working', 'Water leaking', 'Error codes', 'Drum bearing worn', 'Inlet valve blocked'],
+    description: 'Specialized doorstep repair for IFB, LG, Samsung, Bosch, Whirlpool front load washing machines. Drum bearing, oil seal, spider arm, PCB control board, and door gasket replacement.',
+    issues: ['Not spinning or loud drum noise', 'Water leaking from front door gasket', 'Drain pump blocked / water not draining', 'Door lock error (E01/dE/E4)', 'PCB control board failure', 'Machine vibrating / shaking excessively', 'Child lock / program stuck'],
     pricing: [
-      { name: 'Diagnosis / Inspection', cost: '₹299 (adjusted if repaired)' },
-      { name: 'Minor repairs (belts, valves)', cost: '₹500 – ₹1,200' },
-      { name: 'PCB / Motor replacement', cost: '₹1,500 – ₹3,500' }
+      { name: 'Inspection & Diagnosis', cost: '₹299 (free with repair)' },
+      { name: 'Drum Bearing & Oil Seal Replacement', cost: '₹1,400 – ₹2,400' },
+      { name: 'PCB / Control Board Repair', cost: '₹1,500 – ₹3,500' }
     ]
   },
   {
-    id: 'ac',
-    title: 'AC Repair & Gas Refill',
-    icon: '❄️',
-    image: 'images/service-ac-repair.png',
-    priceRange: '₹399 – ₹4,500',
-    description: 'Complete air conditioner repair, servicing, gas charging (R32, R410A, R22), and jet pump coil washing for Split and Window ACs of all tonnage.',
-    issues: ['Not cooling properly', 'Gas leak / low refrigerant', 'Water leakage from indoor unit', 'Foul smell or low airflow', 'Compressor tripping', 'Noise from outdoor unit', 'Remote control / sensor issue', 'Capacitor failure'],
+    id: 'top-load',
+    title: 'Top Load & Semi-Auto Repair',
+    icon: '🫧',
+    image: 'images/service-washing-machine.png',
+    priceRange: '₹299 – ₹2,800',
+    description: 'Expert repair for Top Load Fully Automatic and Semi-Automatic washing machines. Gearbox replacement, motor rewinding, agitator fix, and water inlet valve service.',
+    issues: ['Wash / Spin tub not rotating', 'Drain valve stuck or leaking', 'Pulsator / Agitator loose', 'Motor humming sound without spinning', 'Water filling continuously', 'Spin dryer vibration'],
     pricing: [
-      { name: 'General Wet / Foam Service', cost: '₹499' },
-      { name: 'Gas Charging (R32/R410A)', cost: '₹2,200 – ₹2,800' },
-      { name: 'Compressor / Motor Repair', cost: '₹2,500 – ₹4,500' }
-    ]
-  },
-  {
-    id: 'refrigerator',
-    title: 'Refrigerator Repair',
-    icon: '🧊',
-    image: 'images/service-refrigerator.png',
-    priceRange: '₹349 – ₹3,800',
-    description: 'Expert repair for Single Door, Double Door, and Side-by-Side Inverter refrigerators. Gas charging, compressor replacement, thermostat & defrost timer fixes.',
-    issues: ['Refrigerator not cooling', 'Freezer frosting excessively', 'Water leaking on floor', 'Loud humming / clicking sound', 'Compressor not starting', 'Thermostat faulty', 'Door seal / gasket damaged'],
-    pricing: [
-      { name: 'Inspection & General Checkup', cost: '₹349' },
-      { name: 'Gas Charging & Sealed System Repair', cost: '₹1,800 – ₹2,600' },
-      { name: 'Inverter Compressor Swap', cost: '₹2,800 – ₹3,800' }
+      { name: 'Inspection & Diagnosis', cost: '₹299' },
+      { name: 'Gearbox / Clutch Assembly', cost: '₹1,200 – ₹2,200' },
+      { name: 'Spin & Wash Motor Repair', cost: '₹1,100 – ₹2,500' }
     ]
   },
   {
     id: 'installation',
-    title: 'Installation & Unboxing',
+    title: 'Installation & Relocation',
     icon: '🔩',
     image: 'images/hero-technician.png',
-    priceRange: '₹499 – ₹1,800',
-    description: 'Professional unboxing, wall mounting, plumbing connection, leveling, and testing for new and relocated washing machines and AC units.',
-    issues: ['New Front Load installation', 'Split AC full unit mounting', 'Demounting & relocation', 'Copper piping & insulation', 'Drain pipe plumbing connection'],
+    priceRange: '₹499 – ₹1,200',
+    description: 'Professional unboxing, wall mounting, plumbing connection, precision leveling, anti-vibration pad setup, and test run for new and relocated washing machines.',
+    issues: ['New Front Load unboxing & transit bolt removal', 'Water inlet tap adapter fitting', 'Drain hose plumbing attachment', 'Machine leveling & anti-vibration setup', 'Relocation & demounting service'],
     pricing: [
-      { name: 'Washing Machine Unbox & Leveling', cost: '₹499' },
-      { name: 'Split AC Wall Mount Installation', cost: '₹1,499' },
-      { name: 'Demounting Service', cost: '₹699' }
+      { name: 'Washing Machine Unbox & Setup', cost: '₹499' },
+      { name: 'Transit Bolt Removal & Leveling', cost: '₹399' },
+      { name: 'Complete Demounting & Relocation', cost: '₹799 – ₹1,200' }
     ]
   },
   {
@@ -68,12 +54,12 @@ const DEFAULT_SERVICES = [
     icon: '🛡️',
     image: 'images/service-center-store.png',
     priceRange: '₹1,499 / year',
-    description: 'Protect your appliances year-round. Includes 2 free preventive maintenance visits, priority service within 2 hours, and 15% discount on all spare parts.',
-    issues: ['2 Free Wet Servicings per year', 'Zero labor charges on repairs', '15% discount on genuine spare parts', 'Priority technician dispatch within 2 hours', 'Complete safety and electrical inspection'],
+    description: 'Protect your washing machine year-round. Includes 2 free preventive maintenance visits, descaling & drum cleaning, priority service within 2 hours, and 15% discount on all spare parts.',
+    issues: ['2 Free Preventive Servicings per year', 'Free Tub Descaling & Drum Flush', 'Zero labor charges on all repairs', '15% discount on genuine OEM spare parts', 'Priority technician dispatch within 2 hours'],
     pricing: [
-      { name: 'Washing Machine AMC Plan', cost: '₹1,499 / year' },
-      { name: 'Split AC AMC Plan', cost: '₹1,999 / year' },
-      { name: 'Combo Appliance AMC (Washing + AC + Fridge)', cost: '₹3,999 / year' }
+      { name: 'Front Load Washing Machine AMC', cost: '₹1,499 / year' },
+      { name: 'Top Load Washing Machine AMC', cost: '₹1,199 / year' },
+      { name: 'Semi-Automatic Washing Machine AMC', cost: '₹899 / year' }
     ]
   }
 ];

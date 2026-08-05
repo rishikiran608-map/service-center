@@ -134,11 +134,10 @@ function injectFooter() {
         <div class="footer-col">
           <h5>Our Services</h5>
           <ul>
-            <li><a href="services.html#washing-machine">Washing Machine Repair</a></li>
-            <li><a href="services.html#ac">AC Repair &amp; Gas Refill</a></li>
-            <li><a href="services.html#refrigerator">Refrigerator Repair</a></li>
-            <li><a href="services.html#installation">Installation Services</a></li>
-            <li><a href="services.html#amc">Annual Maintenance (AMC)</a></li>
+            <li><a href="services.html#front-load">Front Load Washing Machine</a></li>
+            <li><a href="services.html#top-load">Top Load &amp; Semi-Auto</a></li>
+            <li><a href="services.html#installation">Installation &amp; Relocation</a></li>
+            <li><a href="services.html#amc">Washing Machine AMC Plan</a></li>
           </ul>
         </div>
 
