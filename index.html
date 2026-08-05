@@ -1965,5 +1965,321 @@ document.getElementById('fyear').textContent = new Date().getFullYear();
 const initPage = location.hash.replace('#','') || 'home';
 navigate(PAGES.includes(initPage) ? initPage : 'home');
 </script>
+<!-- ── PASSWORD MODAL (owner-only access) ── -->
+<div id="pwdModalOverlay" role="dialog" aria-modal="true" aria-labelledby="pwdModalTitle">
+  <div class="pwd-box">
+    <h3 id="pwdModalTitle">🔐 Owner Access</h3>
+    <p>Enter your password to manage gallery photos</p>
+    <input type="password" id="pwdInput" placeholder="Enter password…" autocomplete="current-password" />
+    <div class="pwd-actions">
+      <button class="btn-unlock" id="pwdUnlockBtn">Unlock →</button>
+      <button class="btn-cancel" id="pwdCancelBtn">Cancel</button>
+    </div>
+    <div id="pwdError">❌ Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<!-- ── SECRET OWNER TRIGGER (barely visible gear in corner) ── -->
+<button id="ownerSecretTrigger" title="" aria-label="Settings">⚙</button>
+
+<!-- CLIENT PHOTO MANAGER MODAL -->
+<div class="works-modal-overlay" id="worksModalOverlay" role="dialog" aria-modal="true" aria-labelledby="worksModalTitle">
+  <div class="works-modal">
+    <div class="works-modal-header">
+      <h3 id="worksModalTitle">📸 Client Photo & Work Manager</h3>
+      <button class="works-modal-close" id="closeWorksModalBtn" aria-label="Close modal">✕</button>
+    </div>
+    <div class="works-modal-body">
+      <form id="addWorkForm">
+        <div class="form-group">
+          <label class="form-label" for="workTitle">Work Title / Event Name *</label>
+          <input type="text" id="workTitle" class="form-control" placeholder="e.g. IFB Washing Machine Bearing Service" required />
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label class="form-label" for="workType">Work Type *</label>
+            <select id="workType" class="form-control" required>
+              <option value="past">Past Work 🏆</option>
+              <option value="upcoming">Upcoming Work 📅</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="workCategory">Appliance Category *</label>
+            <select id="workCategory" class="form-control" required>
+              <option value="washing-machine">Washing Machine</option>
+              <option value="ac">AC Repair</option>
+              <option value="refrigerator">Refrigerator</option>
+              <option value="installation">Installation</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Upload Photo *</label>
+          <div class="dropzone-container" id="dropzoneBox">
+            <div class="dropzone-icon">📷</div>
+            <div class="dropzone-text">Click or drag &amp; drop photo here</div>
+            <div class="dropzone-hint">Supports PNG, JPG, WEBP, GIF (compressed & saved to cloud)</div>
+            <input type="file" id="photoFileInput" accept="image/*" style="display:none" />
+          </div>
+          
+          <div class="image-preview-box" id="imagePreviewBox">
+            <img id="imagePreviewImg" src="" alt="Preview photo" />
+          </div>
+
+          <div style="margin-top:0.4rem;font-size:0.8rem;color:var(--gray-500);text-align:center">OR paste photo URL:</div>
+          <input type="url" id="photoUrlInput" class="form-control mt-1" placeholder="https://example.com/photo.jpg" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="workDescription">Description / Details</label>
+          <textarea id="workDescription" class="form-control" rows="2" placeholder="Brief details about the repair or upcoming event..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="workDate">Date</label>
+          <input type="date" id="workDate" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full" style="padding:10px 16px;font-size:0.95rem">
+          ✨ Add Photo to Works Gallery
+        </button>
+      </form>
+
+      <!-- Manage & Delete Existing Photos List -->
+      <div class="manage-list-section">
+        <div class="manage-list-title">
+          <span>Existing Works (<span id="worksCount">0</span>)</span>
+          <button type="button" id="resetDefaultsBtn" style="background:none;border:none;color:var(--blue-600);font-size:0.78rem;cursor:pointer;text-decoration:underline">Reset Sample Defaults</button>
+        </div>
+        <div id="manageWorksList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK & Modules -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/firebase-gallery.js"></script>
+<script src="js/works-manager.js"></script>
+
+<script>
+// ── CLIENT MODAL & FILE UPLOAD LOGIC ──
+const modalOverlay = document.getElementById('worksModalOverlay');
+const closeModalBtn = document.getElementById('closeWorksModalBtn');
+const dropzoneBox = document.getElementById('dropzoneBox');
+const photoFileInput = document.getElementById('photoFileInput');
+const photoUrlInput = document.getElementById('photoUrlInput');
+const imagePreviewBox = document.getElementById('imagePreviewBox');
+const imagePreviewImg = document.getElementById('imagePreviewImg');
+const addWorkForm = document.getElementById('addWorkForm');
+const manageWorksList = document.getElementById('manageWorksList');
+const worksCountEl = document.getElementById('worksCount');
+const resetDefaultsBtn = document.getElementById('resetDefaultsBtn');
+
+let uploadedBase64Image = '';
+let _uploadedFile = null;
+
+function openModal() {
+  modalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderManageList();
+}
+function closeModal() {
+  modalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+  addWorkForm.reset();
+  uploadedBase64Image = '';
+  _uploadedFile = null;
+  imagePreviewBox.classList.remove('show');
+}
+
+closeModalBtn.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); });
+
+// ── OWNER PASSWORD PROTECTION ──
+const OWNER_KEY = btoa('ifb@2024');
+const SESSION_FLAG = 'ifb_owner_unlocked';
+
+const pwdOverlay    = document.getElementById('pwdModalOverlay');
+const pwdInput      = document.getElementById('pwdInput');
+const pwdError      = document.getElementById('pwdError');
+const pwdUnlockBtn  = document.getElementById('pwdUnlockBtn');
+const pwdCancelBtn  = document.getElementById('pwdCancelBtn');
+const secretTrigger = document.getElementById('ownerSecretTrigger');
+
+function openPwdModal() {
+  pwdInput.value = '';
+  pwdError.style.display = 'none';
+  pwdOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => pwdInput.focus(), 120);
+}
+function closePwdModal() {
+  pwdOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+function checkOwnerPassword() {
+  if (btoa(pwdInput.value) === OWNER_KEY) {
+    sessionStorage.setItem(SESSION_FLAG, '1');
+    closePwdModal();
+    openModal();
+  } else {
+    pwdError.style.display = 'block';
+    pwdInput.value = '';
+    pwdInput.focus();
+  }
+}
+function handleOwnerTrigger() {
+  if (sessionStorage.getItem(SESSION_FLAG)) {
+    openModal();
+  } else {
+    openPwdModal();
+  }
+}
+
+secretTrigger.addEventListener('click', handleOwnerTrigger);
+pwdUnlockBtn.addEventListener('click', checkOwnerPassword);
+pwdCancelBtn.addEventListener('click', closePwdModal);
+pwdInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkOwnerPassword(); });
+pwdOverlay.addEventListener('click', e => { if (e.target === pwdOverlay) closePwdModal(); });
+
+// Dropzone file picker
+dropzoneBox.addEventListener('click', () => photoFileInput.click());
+dropzoneBox.addEventListener('dragover', e => { e.preventDefault(); dropzoneBox.style.borderColor = 'var(--blue-600)'; });
+dropzoneBox.addEventListener('dragleave', () => { dropzoneBox.style.borderColor = 'var(--blue-300)'; });
+dropzoneBox.addEventListener('drop', e => {
+  e.preventDefault();
+  dropzoneBox.style.borderColor = 'var(--blue-300)';
+  if (e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+});
+photoFileInput.addEventListener('change', e => {
+  if (e.target.files && e.target.files[0]) handleFile(e.target.files[0]);
+});
+
+function handleFile(file) {
+  if (!file.type.startsWith('image/')) { alert('Please select a valid image file (PNG, JPG, WEBP).'); return; }
+  _uploadedFile = file;
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    uploadedBase64Image = evt.target.result;
+    imagePreviewImg.src = uploadedBase64Image;
+    imagePreviewBox.classList.add('show');
+    photoUrlInput.value = '';
+  };
+  reader.readAsDataURL(file);
+}
+
+photoUrlInput.addEventListener('input', () => {
+  if (photoUrlInput.value.trim()) {
+    uploadedBase64Image = photoUrlInput.value.trim();
+    imagePreviewImg.src = uploadedBase64Image;
+    imagePreviewBox.classList.add('show');
+  } else {
+    imagePreviewBox.classList.remove('show');
+  }
+});
+
+// Form Submission
+addWorkForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const title       = document.getElementById('workTitle').value.trim();
+  const type        = document.getElementById('workType').value;
+  const category    = document.getElementById('workCategory').value;
+  const description = document.getElementById('workDescription').value.trim();
+  const date        = document.getElementById('workDate').value;
+  const urlImage    = photoUrlInput.value.trim();
+
+  if (!title) { alert('Please enter a work title'); return; }
+
+  const submitBtn = addWorkForm.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  submitBtn.textContent = '⏳ Saving…';
+
+  try {
+    if (window.FirebaseGallery && FirebaseGallery.isReady()) {
+      await FirebaseGallery.saveWork(
+        { title, type, category, description, date, image: urlImage },
+        _uploadedFile
+      );
+    } else if (window.WorksManager) {
+      window.WorksManager.addWork({ title, type, category, description, date, image: uploadedBase64Image || urlImage });
+    }
+  } catch(err) {
+    console.error('Save error:', err);
+    if (window.WorksManager) window.WorksManager.addWork({ title, type, category, description, date, image: uploadedBase64Image || urlImage });
+  }
+
+  addWorkForm.reset();
+  uploadedBase64Image = '';
+  _uploadedFile = null;
+  imagePreviewBox.classList.remove('show');
+  submitBtn.disabled = false;
+  submitBtn.textContent = '✨ Add Photo to Works Gallery';
+
+  renderGallery('all');
+  renderManageList();
+  alert('✅ Photo saved to cloud gallery!');
+});
+
+async function renderManageList() {
+  const localWorks = window.WorksManager ? window.WorksManager.getWorks() : [];
+  let cloudWorks = [];
+  if (window.FirebaseGallery && FirebaseGallery.isReady()) {
+    cloudWorks = await FirebaseGallery.loadWorks();
+  }
+  const cloudIds = new Set(cloudWorks.map(w => w.id));
+  const localOnly = localWorks.filter(w => !cloudIds.has(w.id));
+  const allWorks = [...cloudWorks, ...localOnly];
+  worksCountEl.textContent = allWorks.length;
+
+  if (allWorks.length === 0) {
+    manageWorksList.innerHTML = `<div style="font-size:0.85rem;color:var(--gray-500);text-align:center;padding:12px">No photos yet.</div>`;
+    return;
+  }
+
+  manageWorksList.innerHTML = allWorks.map(w => `
+    <div class="manage-item-row">
+      <div class="manage-item-info">
+        ${w.image ? `<img src="${w.image}" class="manage-item-thumb" alt="${w.title}" />` : `<div class="manage-item-thumb">${w.icon || '🛠️'}</div>`}
+        <div style="overflow:hidden">
+          <div class="manage-item-text">${w.title}</div>
+          <div class="manage-item-meta">${w.type === 'upcoming' ? '📅 Upcoming' : '🏆 Past'} • ${w.category}${w._cloud ? ' ☁️' : ''}</div>
+        </div>
+      </div>
+      <button class="btn-delete-item" data-id="${w.id}" data-cloud="${!!w._cloud}">🗑️ Delete</button>
+    </div>`).join('');
+
+  manageWorksList.querySelectorAll('.btn-delete-item').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      if (!confirm('Delete this photo?')) return;
+      const id      = btn.dataset.id;
+      const isCloud = btn.dataset.cloud === 'true';
+
+      if (isCloud && window.FirebaseGallery && FirebaseGallery.isReady()) {
+        btn.textContent = '⏳';
+        await FirebaseGallery.deleteWork(id);
+      } else if (window.WorksManager) {
+        window.WorksManager.deleteWork(id);
+      }
+
+      renderGallery('all');
+      renderManageList();
+    });
+  });
+}
+
+if (document.getElementById('workDate')) {
+  document.getElementById('workDate').value = new Date().toISOString().split('T')[0];
+}
+
+// Init Firebase on load
+if (window.FirebaseGallery) FirebaseGallery.init();
+</script>
 </body>
 </html>

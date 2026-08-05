@@ -1378,6 +1378,101 @@ select.form-control { appearance: none; cursor: pointer; }
     padding: 6px;
   }
 }
+/* ── Secret owner trigger — tiny gear icon, barely visible ── */
+#ownerSecretTrigger {
+  position: fixed;
+  bottom: 10px;
+  right: 14px;
+  z-index: 9000;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0.15;
+  color: var(--gray-500);
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: opacity 0.3s;
+  line-height: 1;
+  user-select: none;
+}
+#ownerSecretTrigger:hover { opacity: 0.7; }
+
+/* ── Password Modal ── */
+#pwdModalOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+}
+#pwdModalOverlay.open { display: flex; }
+.pwd-box {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 2rem 2rem 1.5rem;
+  width: min(360px, 90vw);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  text-align: center;
+  animation: fadeIn 0.2s ease;
+}
+.pwd-box h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 0.3rem;
+}
+.pwd-box p {
+  font-size: 0.875rem;
+  color: var(--gray-500);
+  margin-bottom: 1.2rem;
+}
+.pwd-box input[type="password"] {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.pwd-box input[type="password"]:focus { border-color: var(--blue-600); }
+.pwd-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.pwd-actions button {
+  flex: 1;
+  padding: 0.6rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+.pwd-actions .btn-unlock {
+  background: var(--blue-700);
+  color: #fff;
+}
+.pwd-actions .btn-unlock:hover { background: var(--blue-800); }
+.pwd-actions .btn-cancel {
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+.pwd-actions .btn-cancel:hover { background: var(--gray-200); }
+#pwdError {
+  font-size: 0.8rem;
+  color: #dc2626;
+  margin-top: 0.6rem;
+  display: none;
+}
+
 
 /* ── CUSTOM SERVICES MANAGER STYLES ── */
 .btn-add-services {
