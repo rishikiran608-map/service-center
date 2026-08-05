@@ -1,28 +1,26 @@
 ﻿/* =================================================================
    IFB Service Center Anantapur - firebase-gallery.js
-   Cloud gallery: loads photos from Firestore, uploads to Storage.
-   Falls back gracefully to localStorage if Firebase is not configured.
+   Cloud gallery: stores photos as compressed base64 in Firestore.
+   No Firebase Storage needed (works on free Spark plan).
    ================================================================= */
 (function () {
   "use strict";
 
   let _db = null;
-  let _storage = null;
   let _ready = false;
 
-  /* ── Init ───────────────────────────────────────────────────── */
+  /* -- Init --------------------------------------------------- */
   function init() {
     try {
-      const cfg = window.IFB_FIREBASE_CONFIG;
+      var cfg = window.IFB_FIREBASE_CONFIG;
       if (!cfg || cfg.apiKey === "PASTE_YOUR_apiKey_HERE") {
-        console.info("FirebaseGallery: config not set — using localStorage only.");
+        console.info("FirebaseGallery: config not set, using localStorage only.");
         return false;
       }
       if (!firebase.apps.length) firebase.initializeApp(cfg);
-      _db      = firebase.firestore();
-      _storage = firebase.storage();
-      _ready   = true;
-      console.info("FirebaseGallery: ready.");
+      _db    = firebase.firestore();
+      _ready = true;
+      console.info("FirebaseGallery: ready (Firestore only, no Storage).");
       return true;
     } catch (e) {
       console.warn("FirebaseGallery init error:", e);
@@ -30,58 +28,89 @@
     }
   }
 
-  /* ── Load cloud works from Firestore ────────────────────────── */
+  /* -- Load cloud works from Firestore ----------------------- */
   async function loadWorks() {
     if (!_ready) return [];
     try {
-      const snap = await _db.collection("works")
-                            .orderBy("createdAt", "desc")
-                            .get();
-      return snap.docs.map(doc => ({
-        id:          doc.id,
-        ...doc.data(),
-        image:       doc.data().imageUrl || doc.data().image || "",
-        _cloud:      true
-      }));
+      var snap = await _db.collection("works")
+                          .orderBy("createdAt", "desc")
+                          .get();
+      return snap.docs.map(function(doc) {
+        var d = doc.data();
+        return {
+          id:          doc.id,
+          title:       d.title       || "",
+          type:        d.type        || "past",
+          category:    d.category    || "washing-machine",
+          description: d.description || "",
+          date:        d.date        || "",
+          image:       d.imageBase64 || d.imageUrl || d.image || "",
+          _cloud:      true
+        };
+      });
     } catch (e) {
       console.warn("FirebaseGallery: failed to load works:", e);
       return [];
     }
   }
 
-  /* ── Upload image file to Firebase Storage ──────────────────── */
-  async function _uploadImage(file, docId) {
-    const ref = _storage.ref("works/" + docId + "_" + file.name);
-    await ref.put(file);
-    return await ref.getDownloadURL();
+  /* -- Compress image file to base64 (max 800px, JPEG 0.6) --- */
+  function compressImage(file) {
+    return new Promise(function(resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        var img = new Image();
+        img.onload = function() {
+          var MAX = 800;
+          var w = img.width, h = img.height;
+          if (w > MAX || h > MAX) {
+            if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+            else       { w = Math.round(w * MAX / h); h = MAX; }
+          }
+          var canvas = document.createElement("canvas");
+          canvas.width = w; canvas.height = h;
+          var ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, w, h);
+          var base64 = canvas.toDataURL("image/jpeg", 0.6);
+          resolve(base64);
+        };
+        img.onerror = reject;
+        img.src = evt.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
   }
 
-  /* ── Save a new work (+ optional image file) to Firestore ───── */
+  /* -- Save a new work to Firestore -------------------------- */
   async function saveWork(workData, imageFile) {
     if (!_ready) return null;
     try {
-      /* Create doc first to obtain an ID */
-      const docRef = await _db.collection("works").add({
+      var imageBase64 = workData.image || "";
+
+      // Compress the file if one was uploaded
+      if (imageFile) {
+        imageBase64 = await compressImage(imageFile);
+      }
+
+      var docRef = await _db.collection("works").add({
         title:       workData.title       || "",
         type:        workData.type        || "past",
         category:    workData.category    || "washing-machine",
         description: workData.description || "",
         date:        workData.date        || new Date().toISOString().split("T")[0],
-        imageUrl:    "",
+        imageBase64: imageBase64,
         createdAt:   firebase.firestore.FieldValue.serverTimestamp()
       });
 
-      /* Upload image if a file was chosen */
-      let imageUrl = workData.image || "";
-      if (imageFile) {
-        imageUrl = await _uploadImage(imageFile, docRef.id);
-        await docRef.update({ imageUrl });
-      }
-
       return {
         id:     docRef.id,
-        ...workData,
-        image:  imageUrl,
+        title:  workData.title,
+        type:   workData.type,
+        category: workData.category,
+        description: workData.description,
+        date:   workData.date,
+        image:  imageBase64,
         _cloud: true
       };
     } catch (e) {
@@ -90,7 +119,7 @@
     }
   }
 
-  /* ── Delete a work from Firestore (+ optional Storage cleanup) ─ */
+  /* -- Delete a work from Firestore -------------------------- */
   async function deleteWork(docId) {
     if (!_ready) return false;
     try {
@@ -102,12 +131,12 @@
     }
   }
 
-  /* ── Public API ─────────────────────────────────────────────── */
+  /* -- Public API -------------------------------------------- */
   window.FirebaseGallery = {
-    init,
-    loadWorks,
-    saveWork,
-    deleteWork,
-    isReady: () => _ready
+    init:       init,
+    loadWorks:  loadWorks,
+    saveWork:   saveWork,
+    deleteWork: deleteWork,
+    isReady:    function() { return _ready; }
   };
 })();
