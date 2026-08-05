@@ -1501,9 +1501,6 @@ select.form-control { appearance: none; cursor: pointer; }
   gap: 32px;
 }
 
-@media (max-width: 640px) {
-
-
 /* ── PHOTO UPLOAD & LOCATION DETECTOR STYLES ── */
 .location-input-group {
   display: flex;

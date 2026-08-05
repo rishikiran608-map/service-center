@@ -250,7 +250,7 @@
 </div>
 
 <!-- ── PASSWORD MODAL (owner-only access) ── -->
-<div id="pwdModalOverlay" role="dialog" aria-modal="true" aria-labelledby="pwdModalTitle">
+<div id="pwdModalOverlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="pwdModalTitle">
   <div class="pwd-box">
     <h3 id="pwdModalTitle">🔐 Owner Access</h3>
     <p>Enter your password to manage gallery photos</p>
@@ -273,7 +273,7 @@
 </div>
 
 <!-- CLIENT PHOTO MANAGER MODAL -->
-<div class="works-modal-overlay" id="worksModalOverlay" role="dialog" aria-modal="true" aria-labelledby="worksModalTitle">
+<div class="works-modal-overlay" id="worksModalOverlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="worksModalTitle">
   <div class="works-modal">
     <div class="works-modal-header">
       <h3 id="worksModalTitle">📸 Client Photo & Work Manager</h3>
@@ -531,11 +531,13 @@ const worksCountEl = document.getElementById('worksCount');
 const resetDefaultsBtn = document.getElementById('resetDefaultsBtn');
 
 function openModal() {
+  modalOverlay.style.display = 'flex';
   modalOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
   renderManageList();
 }
 function closeModal() {
+  modalOverlay.style.display = 'none';
   modalOverlay.classList.remove('open');
   document.body.style.overflow = '';
   addWorkForm.reset();
@@ -563,11 +565,13 @@ const secretTrigger = document.getElementById('ownerSecretTrigger');
 function openPwdModal() {
   pwdInput.value = '';
   pwdError.style.display = 'none';
+  pwdOverlay.style.display = 'flex';
   pwdOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
   setTimeout(() => pwdInput.focus(), 120);
 }
 function closePwdModal() {
+  pwdOverlay.style.display = 'none';
   pwdOverlay.classList.remove('open');
   document.body.style.overflow = '';
 }
