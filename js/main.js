@@ -54,8 +54,8 @@ function injectHeader() {
         </nav>
 
         <div class="header-cta" id="headerCta">
-          <a href="tel:+919133576669" class="btn btn-secondary btn-sm"><i data-lucide="phone"></i> Call Now</a>
-          <a href="https://wa.me/919133576669" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><i data-lucide="message-square"></i> WhatsApp</a>
+          <a href="tel:+919133576669" class="btn btn-secondary btn-sm"><svg class="official-call-icon" viewBox="0 0 512 512"><path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/></svg> Call Now</a>
+          <a href="https://wa.me/919133576669" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><svg class="official-wa-icon" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L3.2 496l133.9-35.2c32.7 17.8 69.3 27.2 106.7 27.2 122.4 0 222-99.6 222-222 0-59.3-23.2-115-65-156.9zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-79.8 20.9 21.3-77.8-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-82.8 184.6-184.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg> WhatsApp</a>
         </div>
 
         <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
@@ -113,7 +113,7 @@ function injectFooter() {
             <a href="${BUSINESS.social.facebook}"  class="social-link" aria-label="Facebook"><i data-lucide="globe"></i></a>
             <a href="${BUSINESS.social.instagram}" class="social-link" aria-label="Instagram"><i data-lucide="camera"></i></a>
             <a href="${BUSINESS.social.youtube}"   class="social-link" aria-label="YouTube"><i data-lucide="video"></i></a>
-            <a href="https://wa.me/${BUSINESS.wa}" class="social-link" aria-label="WhatsApp" target="_blank"><i data-lucide="message-square"></i></a>
+            <a href="https://wa.me/${BUSINESS.wa}" class="social-link" aria-label="WhatsApp" target="_blank"><svg class="official-wa-icon" viewBox="0 0 448 512" style="width:1.25rem;height:1.25rem;margin:0"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L3.2 496l133.9-35.2c32.7 17.8 69.3 27.2 106.7 27.2 122.4 0 222-99.6 222-222 0-59.3-23.2-115-65-156.9zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-79.8 20.9 21.3-77.8-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-82.8 184.6-184.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></a>
           </div>
         </div>
 
@@ -180,14 +180,34 @@ function injectFABs() {
     <a href="https://wa.me/${BUSINESS.wa}?text=Hi%2C%20I%20need%20appliance%20repair%20service."
        target="_blank" rel="noopener"
        class="fab fab-whatsapp" id="fabWhatsApp" aria-label="Chat on WhatsApp">
-      <span class="fab-icon"><i data-lucide="message-square" style="color: #fff;"></i></span>
+      <span class="fab-icon" style="display:flex;align-items:center;justify-content:center"><svg class="official-wa-icon" viewBox="0 0 448 512" style="width:1.35rem;height:1.35rem;color:#fff;margin:0"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L3.2 496l133.9-35.2c32.7 17.8 69.3 27.2 106.7 27.2 122.4 0 222-99.6 222-222 0-59.3-23.2-115-65-156.9zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-79.8 20.9 21.3-77.8-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-82.8 184.6-184.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></span>
       <span class="fab-label">WhatsApp</span>
     </a>
     <a href="tel:+919133576669" class="fab fab-call" id="fabCall" aria-label="Call us">
-      <span class="fab-icon"><i data-lucide="phone" style="color: #fff;"></i></span>
+      <span class="fab-icon" style="display:flex;align-items:center;justify-content:center"><svg class="official-call-icon" viewBox="0 0 512 512" style="width:1.25rem;height:1.25rem;color:#fff;margin:0"><path fill="currentColor" d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/></svg></span>
       <span class="fab-label">Call Now</span>
     </a>`;
   document.body.appendChild(wrap);
+
+  // Inject secret gear button if not present statically
+  if (!document.getElementById('ownerSecretTrigger')) {
+    const gearBtn = document.createElement('button');
+    gearBtn.id = 'ownerSecretTrigger';
+    gearBtn.ariaLabel = 'Settings';
+    gearBtn.innerHTML = '⚙';
+    document.body.appendChild(gearBtn);
+
+    gearBtn.addEventListener('click', () => {
+      // If we are already on index.html, we can just click the hidden trigger or open modal
+      const isIndex = location.pathname.endsWith('index.html') || location.pathname.endsWith('/');
+      if (isIndex && typeof handleOwnerTrigger === 'function') {
+        handleOwnerTrigger();
+      } else {
+        window.location.href = 'index.html?openOwner=1';
+      }
+    });
+  }
+
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 

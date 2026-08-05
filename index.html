@@ -124,7 +124,10 @@ p{color:var(--gray-600)}
 .fab:hover{transform:scale(1.06);box-shadow:var(--shadow-xl)}
 .fab-wa{background:#25D366}.fab-call{background:var(--blue-600)}
 .fab-lbl{display:none}
-@media(min-width:480px){.fab-lbl{display:inline}}
+.official-wa-icon { width: 1.15rem; height: 1.15rem; fill: currentColor; vertical-align: middle; display: inline-block; }
+.official-call-icon { width: 1.05rem; height: 1.05rem; fill: currentColor; vertical-align: middle; display: inline-block; }
+.btn .official-wa-icon { margin-right: 0.35rem; }
+.btn .official-call-icon { margin-right: 0.35rem; }
 
 /* ═══════════════════════════════════════════════════════════
    SECTIONS
@@ -561,8 +564,12 @@ select.form-control{appearance:none;cursor:pointer}
       </nav>
 
       <div class="header-cta" id="headerCta">
-        <a href="tel:+919133576669" class="btn btn-secondary btn-sm"><i data-lucide="phone"></i> Call Now</a>
-        <a href="https://wa.me/919133576669" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><i data-lucide="message-square"></i> WhatsApp</a>
+        <a href="tel:+919133576669" class="btn btn-secondary btn-sm">
+          <svg class="official-call-icon" viewBox="0 0 512 512"><path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/></svg> Call Now
+        </a>
+        <a href="https://wa.me/919133576669" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+          <svg class="official-wa-icon" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L3.2 496l133.9-35.2c32.7 17.8 69.3 27.2 106.7 27.2 122.4 0 222-99.6 222-222 0-59.3-23.2-115-65-156.9zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-79.8 20.9 21.3-77.8-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-82.8 184.6-184.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg> WhatsApp
+        </a>
       </div>
 
       <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><i data-lucide="menu"></i></button>
@@ -1141,9 +1148,73 @@ select.form-control{appearance:none;cursor:pointer}
         <p class="section-sub">The difference genuine parts and skilled hands can make.</p>
       </div>
       <div class="ba-grid">
-        <div class="ba-card reveal"><div class="ba-halves"><div class="ba-half" style="background:linear-gradient(135deg,#1f2937,#374151);color:rgba(255,255,255,.6)"><i data-lucide="alert-triangle" style="width:2rem;height:2rem;color:#f87171;margin-bottom:.4rem"></i>Before</div><div class="ba-half" style="background:linear-gradient(135deg,#065f46,#10b981);color:rgba(255,255,255,.85)"><i data-lucide="check-circle" style="width:2rem;height:2rem;color:#34d399;margin-bottom:.4rem"></i>After</div></div><div class="ba-body"><div class="ba-title">IFB Front Load — Drum Bearing</div><div class="ba-desc">Severe vibration &amp; noise → Silent, smooth operation after bearing replacement.</div></div></div>
-        <div class="ba-card reveal"><div class="ba-halves"><div class="ba-half" style="background:linear-gradient(135deg,#1f2937,#374151);color:rgba(255,255,255,.6)"><i data-lucide="alert-triangle" style="width:2rem;height:2rem;color:#f87171;margin-bottom:.4rem"></i>Before</div><div class="ba-half" style="background:linear-gradient(135deg,#065f46,#10b981);color:rgba(255,255,255,.85)"><i data-lucide="check-circle" style="width:2rem;height:2rem;color:#34d399;margin-bottom:.4rem"></i>After</div></div><div class="ba-body"><div class="ba-title">LG Top Load — PCB Repair</div><div class="ba-desc">Machine completely dead → PCB replaced, fully functional in under 2 hours.</div></div></div>
-        <div class="ba-card reveal"><div class="ba-halves"><div class="ba-half" style="background:linear-gradient(135deg,#1f2937,#374151);color:rgba(255,255,255,.6)"><i data-lucide="alert-triangle" style="width:2rem;height:2rem;color:#f87171;margin-bottom:.4rem"></i>Before</div><div class="ba-half" style="background:linear-gradient(135deg,#065f46,#10b981);color:rgba(255,255,255,.85)"><i data-lucide="check-circle" style="width:2rem;height:2rem;color:#34d399;margin-bottom:.4rem"></i>After</div></div><div class="ba-body"><div class="ba-title">Samsung Semi-Auto — Water Pump</div><div class="ba-desc">Water not draining → Pump replaced with genuine part, draining perfectly now.</div></div></div>
+        
+        <!-- Card 1: IFB Drum Bearing -->
+        <div class="ba-card reveal">
+          <div class="ba-halves" style="display:grid;grid-template-columns:1fr 1fr;height:190px">
+            <div class="ba-half-img-container crop-left" style="position:relative;width:100%;height:100%;overflow:hidden">
+              <img src="images/before-after-gallery1.png" alt="IFB Drum Bearing - Before" style="position:absolute;left:0;top:0;width:200%;height:100%;object-fit:cover;object-position:left" />
+              <div class="ba-half-overlay-label" style="position:absolute;inset:0;background:rgba(10,22,40,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.85rem;text-shadow:0 1px 4px rgba(0,0,0,0.8);gap:0.3rem;z-index:2">
+                <span style="font-size:1.5rem">🔴</span>Before
+              </div>
+            </div>
+            <div class="ba-half-img-container crop-right" style="position:relative;width:100%;height:100%;overflow:hidden">
+              <img src="images/before-after-gallery1.png" alt="IFB Drum Bearing - After" style="position:absolute;right:0;top:0;width:200%;height:100%;object-fit:cover;object-position:right" />
+              <div class="ba-half-overlay-label" style="position:absolute;inset:0;background:rgba(10,22,40,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.85rem;text-shadow:0 1px 4px rgba(0,0,0,0.8);gap:0.3rem;z-index:2">
+                <span style="font-size:1.5rem">✅</span>After
+              </div>
+            </div>
+          </div>
+          <div class="ba-body">
+            <div class="ba-title">IFB Front Load — Drum Bearing</div>
+            <div class="ba-desc">Severe vibration &amp; noise → Silent, smooth operation after bearing replacement.</div>
+          </div>
+        </div>
+
+        <!-- Card 2: LG Top Load -->
+        <div class="ba-card reveal">
+          <div class="ba-halves" style="display:grid;grid-template-columns:1fr 1fr;height:190px">
+            <div class="ba-half-img-container full-img" style="position:relative;width:100%;height:100%;overflow:hidden">
+              <img src="images/before-repair.png" alt="LG Top Load - Before" style="position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;object-position:center" />
+              <div class="ba-half-overlay-label" style="position:absolute;inset:0;background:rgba(10,22,40,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.85rem;text-shadow:0 1px 4px rgba(0,0,0,0.8);gap:0.3rem;z-index:2">
+                <span style="font-size:1.5rem">🔴</span>Before
+              </div>
+            </div>
+            <div class="ba-half-img-container full-img" style="position:relative;width:100%;height:100%;overflow:hidden">
+              <img src="images/after-repair.png" alt="LG Top Load - After" style="position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;object-position:center" />
+              <div class="ba-half-overlay-label" style="position:absolute;inset:0;background:rgba(10,22,40,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.85rem;text-shadow:0 1px 4px rgba(0,0,0,0.8);gap:0.3rem;z-index:2">
+                <span style="font-size:1.5rem">✅</span>After
+              </div>
+            </div>
+          </div>
+          <div class="ba-body">
+            <div class="ba-title">LG Top Load — Gearbox Assembly</div>
+            <div class="ba-desc">Spin tub stuck &amp; water leaking → Smooth spin cycle restored with genuine clutch assembly.</div>
+          </div>
+        </div>
+
+        <!-- Card 3: Samsung PCB -->
+        <div class="ba-card reveal">
+          <div class="ba-halves" style="display:grid;grid-template-columns:1fr 1fr;height:190px">
+            <div class="ba-half-img-container crop-left" style="position:relative;width:100%;height:100%;overflow:hidden">
+              <img src="images/before-after-gallery2.png" alt="Samsung PCB - Before" style="position:absolute;left:0;top:0;width:200%;height:100%;object-fit:cover;object-position:left" />
+              <div class="ba-half-overlay-label" style="position:absolute;inset:0;background:rgba(10,22,40,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.85rem;text-shadow:0 1px 4px rgba(0,0,0,0.8);gap:0.3rem;z-index:2">
+                <span style="font-size:1.5rem">🔴</span>Before
+              </div>
+            </div>
+            <div class="ba-half-img-container crop-right" style="position:relative;width:100%;height:100%;overflow:hidden">
+              <img src="images/before-after-gallery2.png" alt="Samsung PCB - After" style="position:absolute;right:0;top:0;width:200%;height:100%;object-fit:cover;object-position:right" />
+              <div class="ba-half-overlay-label" style="position:absolute;inset:0;background:rgba(10,22,40,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.85rem;text-shadow:0 1px 4px rgba(0,0,0,0.8);gap:0.3rem;z-index:2">
+                <span style="font-size:1.5rem">✅</span>After
+              </div>
+            </div>
+          </div>
+          <div class="ba-body">
+            <div class="ba-title">Samsung Front Load — PCB Control Board</div>
+            <div class="ba-desc">Power trip &amp; error code → Circuit repaired, re-programmed, and stress-tested for 3 full cycles.</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1294,6 +1365,19 @@ select.form-control{appearance:none;cursor:pointer}
                 <textarea id="cIssue" class="form-control" placeholder="e.g. Washing machine not spinning, making loud noise..." required rows="4"></textarea>
               </div>
               <div class="form-group">
+                <label class="form-label">Attach Photo of Problem (Optional)</label>
+                <div class="photo-upload-zone" id="cPhotoZone">
+                  <div class="upload-icon">📷</div>
+                  <div class="upload-text">Click or drag &amp; drop photo of problem</div>
+                  <div class="upload-hint">Snap a photo of the error code, leaking part, or appliance model label</div>
+                  <input type="file" id="cPhotoInput" accept="image/*" style="display:none" />
+                </div>
+                <div class="photo-preview-container" id="cPhotoPreview" style="display:none">
+                  <img id="cPhotoImg" src="" alt="Issue photo preview" />
+                  <button type="button" class="btn-remove-photo" id="btnRemoveCPhoto" title="Remove photo">✕</button>
+                </div>
+              </div>
+              <div class="form-group">
                 <label class="form-label" for="cTime">Preferred Service Time</label>
                 <select id="cTime" class="form-control">
                   <option>As soon as possible</option>
@@ -1440,10 +1524,10 @@ select.form-control{appearance:none;cursor:pointer}
 <!-- Floating buttons -->
 <div class="fab-wrap">
   <a href="https://wa.me/919133576669?text=Hi%2C%20I%20need%20appliance%20repair%20service." target="_blank" rel="noopener" class="fab fab-wa" aria-label="WhatsApp">
-    <i data-lucide="message-square" style="width: 1.2rem; height: 1.2rem; color: #fff;"></i><span class="fab-lbl">WhatsApp</span>
+    <svg class="official-wa-icon" style="color:#fff;margin-right:0.25rem" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L3.2 496l133.9-35.2c32.7 17.8 69.3 27.2 106.7 27.2 122.4 0 222-99.6 222-222 0-59.3-23.2-115-65-156.9zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-79.8 20.9 21.3-77.8-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-82.8 184.6-184.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg><span class="fab-lbl">WhatsApp</span>
   </a>
   <a href="tel:+919133576669" class="fab fab-call" aria-label="Call us">
-    <i data-lucide="phone" style="width: 1.2rem; height: 1.2rem; color: #fff;"></i><span class="fab-lbl">Call Now</span>
+    <svg class="official-call-icon" style="color:#fff;margin-right:0.25rem" viewBox="0 0 512 512"><path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/></svg><span class="fab-lbl">Call Now</span>
   </a>
 </div>
 
@@ -1714,6 +1798,66 @@ document.addEventListener('change', function(e) {
    CONTACT FORM (WhatsApp deep-link) + BOOKING MODAL
 ═══════════════════════════════════════════════════════════ */
 
+// Booking Form Photo Attachment Logic
+let _cPhotoBase64 = '';
+
+document.addEventListener('click', function(e) {
+  const zone = e.target.closest('#cPhotoZone');
+  if (zone) {
+    document.getElementById('cPhotoInput').click();
+  }
+  if (e.target.id === 'btnRemoveCPhoto') {
+    _cPhotoBase64 = '';
+    document.getElementById('cPhotoInput').value = '';
+    document.getElementById('cPhotoPreview').style.display = 'none';
+    document.getElementById('cPhotoZone').style.display = 'block';
+  }
+});
+
+document.addEventListener('change', function(e) {
+  if (e.target.id === 'cPhotoInput') {
+    const file = e.target.files[0];
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        alert('Please select a valid image file.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        document.getElementById('cPhotoImg').src = evt.target.result;
+        document.getElementById('cPhotoPreview').style.display = 'inline-block';
+        document.getElementById('cPhotoZone').style.display = 'none';
+
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const max_size = 600;
+          let width = img.width;
+          let height = img.height;
+          if (width > height) {
+            if (width > max_size) {
+              height *= max_size / width;
+              width = max_size;
+            }
+          } else {
+            if (height > max_size) {
+              width *= max_size / height;
+              height = max_size;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          _cPhotoBase64 = canvas.toDataURL('image/jpeg', 0.65);
+        };
+        img.src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+});
+
 // Last booking state (used by modal buttons)
 let _lastBooking = null;
 
@@ -1728,15 +1872,40 @@ document.addEventListener('submit', function(e) {
   const time     = document.getElementById('cTime').value;
   if (!name||!phone||!location||!appl||!issue) { alert('Please fill in all required fields including your service location.'); return; }
 
+  // Save booking to Firestore if available
+  const bookingData = {
+    name,
+    phone,
+    location,
+    appliance: appl,
+    issue,
+    time,
+    photo: _cPhotoBase64,
+    status: 'pending',
+    date: new Date().toISOString().split('T')[0]
+  };
+
+  if (window.FirebaseGallery && FirebaseGallery.isReady()) {
+    FirebaseGallery.saveBooking(bookingData).then(docId => {
+      console.log('Booking saved to cloud with ID:', docId);
+    });
+  }
+
   // Build service request message (goes to owner)
-  const ownerMsg = [
+  const ownerMsgLines = [
     '🔧 *New Service Request — IFB Service Center Anantapur*','',
     `👤 *Name:* ${name}`,`📱 *Phone:* ${phone}`,
     `📍 *Location:* ${location}`,
     `🏠 *Appliance:* ${appl}`,`📋 *Issue:* ${issue}`,
-    `🕐 *Preferred Time:* ${time}`,'',
-    '_Sent via IFB Service Center website_'
-  ].join('\n');
+    `🕐 *Preferred Time:* ${time}`
+  ];
+
+  if (_cPhotoBase64) {
+    ownerMsgLines.push('📷 *Problem Photo Attached!* (Please check Owner Dashboard or WhatsApp attachment)');
+  }
+
+  ownerMsgLines.push('', '_Sent via IFB Service Center website_');
+  const ownerMsg = ownerMsgLines.join('\n');
 
   // Store booking for modal use
   _lastBooking = { name, phone, appl, issue, date: new Date().toISOString().split('T')[0] };
@@ -1748,6 +1917,11 @@ document.addEventListener('submit', function(e) {
     // Send owner the booking via WhatsApp
     window.open(`https://wa.me/919133576669?text=${encodeURIComponent(ownerMsg)}`, '_blank', 'noopener,noreferrer');
     e.target.reset();
+    _cPhotoBase64 = '';
+    const previewEl = document.getElementById('cPhotoPreview');
+    const zoneEl = document.getElementById('cPhotoZone');
+    if (previewEl) previewEl.style.display = 'none';
+    if (zoneEl) zoneEl.style.display = 'block';
     document.getElementById('contactSuccess').classList.remove('show');
 
     // Show booking modal after a tiny delay
@@ -1890,9 +2064,11 @@ function deleteAndRefresh(id) {
 }
 
 function updateReminderFab() {
+  const isOwner = sessionStorage.getItem('ifb_owner_unlocked');
   const count = loadReminders().length;
   const fab = document.getElementById('rmOwnerFab');
-  fab.style.display = count > 0 ? 'flex' : 'none';
+  // Only show the Reminders FAB when owner is logged in AND there are reminders
+  fab.style.display = (isOwner && count > 0) ? 'flex' : 'none';
   document.getElementById('rmCountBadge').textContent = count;
 }
 
@@ -2032,73 +2208,93 @@ navigate(PAGES.includes(initPage) ? initPage : 'home');
 <div class="works-modal-overlay" id="worksModalOverlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="worksModalTitle">
   <div class="works-modal">
     <div class="works-modal-header">
-      <h3 id="worksModalTitle">📸 Client Photo & Work Manager</h3>
+      <h3 id="worksModalTitle">⚙️ Owner Dashboard</h3>
       <button class="works-modal-close" id="closeWorksModalBtn" aria-label="Close modal">✕</button>
     </div>
     <div class="works-modal-body">
-      <form id="addWorkForm">
-        <div class="form-group">
-          <label class="form-label" for="workTitle">Work Title / Event Name *</label>
-          <input type="text" id="workTitle" class="form-control" placeholder="e.g. IFB Washing Machine Bearing Service" required />
-        </div>
+      <!-- Dashboard Tabs -->
+      <div class="modal-tabs" style="display:flex;border-bottom:1px solid var(--gray-200);margin-bottom:1.5rem;gap:1.5rem">
+        <button type="button" class="tab-btn active" id="tabWorksBtn" style="padding-bottom:.5rem;font-weight:700;font-size:0.95rem;background:none;border:none;border-bottom:2px solid var(--blue-700);color:var(--blue-700);cursor:pointer">📸 Works Gallery</button>
+        <button type="button" class="tab-btn" id="tabBookingsBtn" style="padding-bottom:.5rem;font-weight:600;font-size:0.95rem;background:none;border:none;color:var(--gray-500);cursor:pointer">📋 Service Bookings</button>
+      </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <!-- Tab Content: Works Gallery -->
+      <div id="tabWorksContent">
+        <form id="addWorkForm">
           <div class="form-group">
-            <label class="form-label" for="workType">Work Type *</label>
-            <select id="workType" class="form-control" required>
-              <option value="past">Past Work 🏆</option>
-              <option value="upcoming">Upcoming Work 📅</option>
-            </select>
+            <label class="form-label" for="workTitle">Work Title / Event Name *</label>
+            <input type="text" id="workTitle" class="form-control" placeholder="e.g. IFB Washing Machine Bearing Service" required />
           </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group">
+              <label class="form-label" for="workType">Work Type *</label>
+              <select id="workType" class="form-control" required>
+                <option value="past">Past Work 🏆</option>
+                <option value="upcoming">Upcoming Work 📅</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="workCategory">Appliance Category *</label>
+              <select id="workCategory" class="form-control" required>
+                <option value="washing-machine">Washing Machine Repair</option>
+                <option value="installation">Installation &amp; Relocation</option>
+              </select>
+            </div>
+          </div>
+
           <div class="form-group">
-            <label class="form-label" for="workCategory">Appliance Category *</label>
-            <select id="workCategory" class="form-control" required>
-              <option value="washing-machine">Washing Machine Repair</option>
-              <option value="installation">Installation &amp; Relocation</option>
-            </select>
-          </div>
-        </div>
+            <label class="form-label">Upload Photo *</label>
+            <div class="dropzone-container" id="dropzoneBox">
+              <div class="dropzone-icon">📷</div>
+              <div class="dropzone-text">Click or drag &amp; drop photo here</div>
+              <div class="dropzone-hint">Supports PNG, JPG, WEBP, GIF (compressed & saved to cloud)</div>
+              <input type="file" id="photoFileInput" accept="image/*" style="display:none" />
+            </div>
+            
+            <div class="image-preview-box" id="imagePreviewBox">
+              <img id="imagePreviewImg" src="" alt="Preview photo" />
+            </div>
 
-        <div class="form-group">
-          <label class="form-label">Upload Photo *</label>
-          <div class="dropzone-container" id="dropzoneBox">
-            <div class="dropzone-icon">📷</div>
-            <div class="dropzone-text">Click or drag &amp; drop photo here</div>
-            <div class="dropzone-hint">Supports PNG, JPG, WEBP, GIF (compressed & saved to cloud)</div>
-            <input type="file" id="photoFileInput" accept="image/*" style="display:none" />
-          </div>
-          
-          <div class="image-preview-box" id="imagePreviewBox">
-            <img id="imagePreviewImg" src="" alt="Preview photo" />
+            <div style="margin-top:0.4rem;font-size:0.8rem;color:var(--gray-500);text-align:center">OR paste photo URL:</div>
+            <input type="url" id="photoUrlInput" class="form-control mt-1" placeholder="https://example.com/photo.jpg" />
           </div>
 
-          <div style="margin-top:0.4rem;font-size:0.8rem;color:var(--gray-500);text-align:center">OR paste photo URL:</div>
-          <input type="url" id="photoUrlInput" class="form-control mt-1" placeholder="https://example.com/photo.jpg" />
-        </div>
+          <div class="form-group">
+            <label class="form-label" for="workDescription">Description / Details</label>
+            <textarea id="workDescription" class="form-control" rows="2" placeholder="Brief details about the repair or upcoming event..."></textarea>
+          </div>
 
-        <div class="form-group">
-          <label class="form-label" for="workDescription">Description / Details</label>
-          <textarea id="workDescription" class="form-control" rows="2" placeholder="Brief details about the repair or upcoming event..."></textarea>
-        </div>
+          <div class="form-group">
+            <label class="form-label" for="workDate">Date</label>
+            <input type="date" id="workDate" class="form-control" />
+          </div>
 
-        <div class="form-group">
-          <label class="form-label" for="workDate">Date</label>
-          <input type="date" id="workDate" class="form-control" />
-        </div>
+          <button type="submit" class="btn btn-primary w-full" style="padding:10px 16px;font-size:0.95rem">
+            ✨ Add Photo to Works Gallery
+          </button>
+        </form>
 
-        <button type="submit" class="btn btn-primary w-full" style="padding:10px 16px;font-size:0.95rem">
-          ✨ Add Photo to Works Gallery
-        </button>
-      </form>
-
-      <!-- Manage & Delete Existing Photos List -->
-      <div class="manage-list-section">
-        <div class="manage-list-title">
-          <span>Existing Works (<span id="worksCount">0</span>)</span>
-          <button type="button" id="resetDefaultsBtn" style="background:none;border:none;color:var(--blue-600);font-size:0.78rem;cursor:pointer;text-decoration:underline">Reset Sample Defaults</button>
+        <!-- Manage & Delete Existing Photos List -->
+        <div class="manage-list-section">
+          <div class="manage-list-title">
+            <span>Existing Works (<span id="worksCount">0</span>)</span>
+            <button type="button" id="resetDefaultsBtn" style="background:none;border:none;color:var(--blue-600);font-size:0.78rem;cursor:pointer;text-decoration:underline">Reset Sample Defaults</button>
+          </div>
+          <div id="manageWorksList">
+            <!-- Populated by JS -->
+          </div>
         </div>
-        <div id="manageWorksList">
-          <!-- Populated by JS -->
+      </div>
+
+      <!-- Tab Content: Service Bookings -->
+      <div id="tabBookingsContent" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+          <h4 style="font-weight:700;color:var(--gray-800);margin:0">Client Service Requests</h4>
+          <button type="button" id="refreshBookingsBtn" class="btn btn-secondary btn-sm" style="padding:4px 10px;font-size:0.8rem">🔄 Refresh</button>
+        </div>
+        <div id="bookingsListContainer" style="max-height:550px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;padding-right:4px">
+          <div style="text-align:center;padding:24px;color:var(--gray-400);font-size:0.9rem">Loading bookings from cloud...</div>
         </div>
       </div>
     </div>
@@ -2178,6 +2374,7 @@ function checkOwnerPassword() {
     sessionStorage.setItem(SESSION_FLAG, '1');
     closePwdModal();
     openModal();
+    updateReminderFab(); // Show reminders FAB now that owner is authenticated
   } else {
     pwdError.style.display = 'block';
     pwdInput.value = '';
@@ -2197,6 +2394,13 @@ pwdUnlockBtn.addEventListener('click', checkOwnerPassword);
 pwdCancelBtn.addEventListener('click', closePwdModal);
 pwdInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkOwnerPassword(); });
 pwdOverlay.addEventListener('click', e => { if (e.target === pwdOverlay) closePwdModal(); });
+
+// Auto-open owner dashboard if query param is set
+if (new URLSearchParams(location.search).get('openOwner') === '1') {
+  handleOwnerTrigger();
+  const cleanUrl = location.protocol + "//" + location.host + location.pathname;
+  window.history.replaceState({path: cleanUrl}, '', cleanUrl);
+}
 
 // Dropzone file picker
 dropzoneBox.addEventListener('click', () => photoFileInput.click());
@@ -2319,6 +2523,148 @@ async function renderManageList() {
 
       renderGallery('all');
       renderManageList();
+    });
+  });
+}
+
+// Tab Switching inside Owner Modal
+const tabWorksBtn = document.getElementById('tabWorksBtn');
+const tabBookingsBtn = document.getElementById('tabBookingsBtn');
+const tabWorksContent = document.getElementById('tabWorksContent');
+const tabBookingsContent = document.getElementById('tabBookingsContent');
+
+if (tabWorksBtn && tabBookingsBtn) {
+  tabWorksBtn.addEventListener('click', () => {
+    tabWorksBtn.classList.add('active');
+    tabWorksBtn.style.color = 'var(--blue-700)';
+    tabWorksBtn.style.borderBottom = '2px solid var(--blue-700)';
+    tabBookingsBtn.classList.remove('active');
+    tabBookingsBtn.style.color = 'var(--gray-500)';
+    tabBookingsBtn.style.borderBottom = 'none';
+    tabWorksContent.style.display = 'block';
+    tabBookingsContent.style.display = 'none';
+  });
+
+  tabBookingsBtn.addEventListener('click', () => {
+    tabBookingsBtn.classList.add('active');
+    tabBookingsBtn.style.color = 'var(--blue-700)';
+    tabBookingsBtn.style.borderBottom = '2px solid var(--blue-700)';
+    tabWorksBtn.classList.remove('active');
+    tabWorksBtn.style.color = 'var(--gray-500)';
+    tabWorksBtn.style.borderBottom = 'none';
+    tabWorksContent.style.display = 'none';
+    tabBookingsContent.style.display = 'block';
+    renderBookingsList();
+  });
+}
+
+const refreshBkBtn = document.getElementById('refreshBookingsBtn');
+if (refreshBkBtn) {
+  refreshBkBtn.addEventListener('click', renderBookingsList);
+}
+
+async function renderBookingsList() {
+  const container = document.getElementById('bookingsListContainer');
+  if (!container) return;
+  container.innerHTML = `<div style="text-align:center;padding:24px;color:var(--gray-400);font-size:0.9rem">⏳ Loading cloud bookings...</div>`;
+
+  if (!window.FirebaseGallery || !FirebaseGallery.isReady()) {
+    container.innerHTML = `<div style="text-align:center;padding:24px;color:var(--gray-500);font-size:0.9rem">❌ Firebase not ready or offline.</div>`;
+    return;
+  }
+
+  const bookings = await FirebaseGallery.loadBookings();
+  if (bookings.length === 0) {
+    container.innerHTML = `<div style="text-align:center;padding:24px;color:var(--gray-500);font-size:0.9rem">📋 No service requests found.</div>`;
+    return;
+  }
+
+  container.innerHTML = bookings.map(b => {
+    const statusColors = {
+      pending: { bg: '#fef3c7', text: '#d97706', label: 'Pending' },
+      'in-progress': { bg: '#dbeafe', text: '#2563eb', label: 'In Progress' },
+      completed: { bg: '#d1fae5', text: '#059669', label: 'Completed' }
+    };
+    const c = statusColors[b.status] || statusColors.pending;
+    
+    // Call link formatting
+    const plainPhone = b.phone.replace(/[^\d]/g, '');
+    const waLink = `https://wa.me/${plainPhone.startsWith('91') ? plainPhone : '91' + plainPhone}`;
+    const callLink = `tel:${plainPhone}`;
+
+    return `
+      <div style="background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px;text-align:left">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+          <div>
+            <h5 style="font-weight:700;color:var(--gray-800);margin:0;font-size:1rem">${b.name}</h5>
+            <div style="font-size:0.78rem;color:var(--gray-400)">Date: ${b.date}</div>
+          </div>
+          <select class="booking-status-select" data-id="${b.id}" style="font-size:0.8rem;padding:4px 8px;border-radius:8px;border:1px solid var(--gray-300);background:${c.bg};color:${c.text};font-weight:600">
+            <option value="pending" ${b.status === 'pending' ? 'selected' : ''}>Pending ⏳</option>
+            <option value="in-progress" ${b.status === 'in-progress' ? 'selected' : ''}>In Progress ⚙️</option>
+            <option value="completed" ${b.status === 'completed' ? 'selected' : ''}>Completed ✅</option>
+          </select>
+        </div>
+
+        <div style="font-size:0.85rem;color:var(--gray-600);display:grid;grid-template-columns:1fr;gap:4px">
+          <div><b>Appliance:</b> ${b.appliance}</div>
+          <div><b>Time:</b> ${b.time}</div>
+          <div><b>Location:</b> ${b.location} ${b.mapsLink ? `<a href="${b.mapsLink}" target="_blank" style="color:var(--blue-500);font-weight:600;margin-left:4px">🗺️ View Map Pin</a>` : ''}</div>
+          <div style="background:#fff;padding:8px 12px;border-radius:8px;border:1px solid var(--gray-200);margin-top:6px;font-style:italic">
+            "${b.issue}"
+          </div>
+        </div>
+
+        ${b.photo ? `
+          <div style="margin-top:4px">
+            <b style="font-size:0.85rem;color:var(--gray-600)">Attached Photo:</b><br/>
+            <img src="${b.photo}" alt="Attached issue photo" class="booking-thumb-img" data-large="${b.photo}" style="max-height:80px;border-radius:8px;border:1px solid var(--gray-200);margin-top:6px;cursor:pointer;object-fit:cover" />
+          </div>
+        ` : ''}
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--gray-200)">
+          <div style="display:flex;gap:8px">
+            <a href="${callLink}" class="btn btn-secondary btn-sm" style="padding:4px 10px;font-size:0.78rem">📞 Call Customer</a>
+            <a href="${waLink}" target="_blank" class="btn btn-secondary btn-sm" style="padding:4px 10px;font-size:0.78rem;color:#25D366;border-color:#25D366">💬 WhatsApp</a>
+          </div>
+          <button type="button" class="btn-delete-booking" data-id="${b.id}" style="background:none;border:none;color:red;cursor:pointer;font-size:0.85rem">🗑️ Delete</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Handle Status Update change event
+  container.querySelectorAll('.booking-status-select').forEach(sel => {
+    sel.addEventListener('change', async (e) => {
+      const id = e.target.dataset.id;
+      const status = e.target.value;
+      e.target.disabled = true;
+      const ok = await FirebaseGallery.updateBookingStatus(id, status);
+      e.target.disabled = false;
+      if (ok) renderBookingsList();
+    });
+  });
+
+  // Handle Photo click logic to open full-screen lightbox
+  container.querySelectorAll('.booking-thumb-img').forEach(img => {
+    img.addEventListener('click', () => {
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lbImg');
+      if (lb && lbImg) {
+        lbImg.src = img.dataset.large;
+        lb.classList.add('open');
+      }
+    });
+  });
+
+  // Handle Booking deletion click
+  container.querySelectorAll('.btn-delete-booking').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      if (!confirm('Are you sure you want to delete this service request?')) return;
+      const id = btn.dataset.id;
+      btn.textContent = '⏳';
+      const ok = await FirebaseGallery.deleteBooking(id);
+      if (ok) renderBookingsList();
     });
   });
 }

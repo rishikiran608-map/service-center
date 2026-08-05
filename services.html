@@ -67,7 +67,53 @@
   </div>
 </section>
 
-<!-- BRANDS WE REPAIR -->
+<!-- BEFORE & AFTER COMPARISON -->
+<section class="ba-section">
+  <div class="container">
+    <div class="section-head center">
+      <span class="section-label">Real Results</span>
+      <h2 class="section-title">Before & After Repairs</h2>
+      <div class="divider center"></div>
+      <p class="section-sub">See the real difference our certified technicians make — from broken to brand new.</p>
+    </div>
+    <div class="ba-grid">
+
+      <!-- Card 1: Front Load Repair -->
+      <div class="ba-card reveal">
+        <div class="ba-slider-container" id="baSlider1">
+          <img src="images/before-repair.png" alt="Before Repair" class="ba-before" />
+          <img src="images/after-repair.png" alt="After Repair" class="ba-after" />
+          <div class="ba-divider"></div>
+          <div class="ba-handle">⟷</div>
+          <span class="ba-label before">Before</span>
+          <span class="ba-label after">After</span>
+        </div>
+        <div class="ba-card-body">
+          <h4>Front Load — Water Leaking & Drum Noise</h4>
+          <p>Customer complained of water pooling under the machine and loud grinding during spin cycle. Replaced drum bearing, oil seal, and front door gasket — runs silent now.</p>
+        </div>
+      </div>
+
+      <!-- Card 2: Top Load Repair -->
+      <div class="ba-card reveal">
+        <div class="ba-slider-container" id="baSlider2">
+          <img src="images/before-repair.png" alt="Before Repair" class="ba-before" />
+          <img src="images/after-repair.png" alt="After Repair" class="ba-after" />
+          <div class="ba-divider"></div>
+          <div class="ba-handle">⟷</div>
+          <span class="ba-label before">Before</span>
+          <span class="ba-label after">After</span>
+        </div>
+        <div class="ba-card-body">
+          <h4>Top Load — PCB Board Failure & Error Code</h4>
+          <p>Machine was completely dead with error code E4 flashing. Diagnosed faulty PCB control board, replaced with genuine part — fully operational same day.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <section class="brands-section">
   <div class="container">
     <div class="section-head center" style="color:var(--white)">
@@ -121,6 +167,20 @@
     </div>
   </div>
 </section>
+
+<!-- ── PASSWORD MODAL (owner-only access) ── -->
+<div id="pwdModalOverlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="pwdModalTitle">
+  <div class="pwd-box">
+    <h3 id="pwdModalTitle">🔐 Owner Access</h3>
+    <p>Enter your password to manage custom services</p>
+    <input type="password" id="pwdInput" placeholder="Enter password…" autocomplete="current-password" />
+    <div class="pwd-actions">
+      <button class="btn-unlock" id="pwdUnlockBtn">Unlock →</button>
+      <button class="btn-cancel" id="pwdCancelBtn">Cancel</button>
+    </div>
+    <div id="pwdError">❌ Incorrect password. Try again.</div>
+  </div>
+</div>
 
 <!-- CLIENT SERVICES MANAGER MODAL -->
 <div class="works-modal-overlay" id="servicesModalOverlay" role="dialog" aria-modal="true" aria-labelledby="servicesModalTitle">
@@ -261,6 +321,48 @@ const manageServicesList = document.getElementById('manageServicesList');
 const servicesCountEl = document.getElementById('servicesCount');
 const resetDefaultServicesBtn = document.getElementById('resetDefaultServicesBtn');
 
+// ── OWNER PASSWORD PROTECTION ──
+const OWNER_KEY = btoa('ifb@2024');
+const SESSION_FLAG = 'ifb_owner_unlocked';
+
+const pwdOverlay    = document.getElementById('pwdModalOverlay');
+const pwdInput      = document.getElementById('pwdInput');
+const pwdError      = document.getElementById('pwdError');
+const pwdUnlockBtn  = document.getElementById('pwdUnlockBtn');
+const pwdCancelBtn  = document.getElementById('pwdCancelBtn');
+
+function openPwdModal() {
+  pwdInput.value = '';
+  pwdError.style.display = 'none';
+  pwdOverlay.style.display = 'flex';
+  pwdOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => pwdInput.focus(), 120);
+}
+function closePwdModal() {
+  pwdOverlay.style.display = 'none';
+  pwdOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+function checkOwnerPassword() {
+  if (btoa(pwdInput.value) === OWNER_KEY) {
+    sessionStorage.setItem(SESSION_FLAG, '1');
+    closePwdModal();
+    openServicesModal();
+  } else {
+    pwdError.style.display = 'block';
+    pwdInput.value = '';
+    pwdInput.focus();
+  }
+}
+function handleServicesManagementClick() {
+  if (sessionStorage.getItem(SESSION_FLAG)) {
+    openServicesModal();
+  } else {
+    openPwdModal();
+  }
+}
+
 function openServicesModal() {
   servicesModalOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -273,11 +375,15 @@ function closeServicesModal() {
   addServiceForm.reset();
 }
 
-openServicesModalBtn.addEventListener('click', openServicesModal);
+openServicesModalBtn.addEventListener('click', handleServicesManagementClick);
 closeServicesModalBtn.addEventListener('click', closeServicesModal);
 servicesModalOverlay.addEventListener('click', e => {
   if (e.target === servicesModalOverlay) closeServicesModal();
 });
+pwdUnlockBtn.addEventListener('click', checkOwnerPassword);
+pwdCancelBtn.addEventListener('click', closePwdModal);
+pwdInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkOwnerPassword(); });
+pwdOverlay.addEventListener('click', e => { if (e.target === pwdOverlay) closePwdModal(); });
 
 addServiceForm.addEventListener('submit', e => {
   e.preventDefault();
@@ -356,6 +462,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const el = document.getElementById(svc);
     if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 400);
   }
+
+  // ── Before & After Slider Logic ──
+  document.querySelectorAll('.ba-slider-container').forEach(container => {
+    const afterImg = container.querySelector('.ba-after');
+    const divider  = container.querySelector('.ba-divider');
+    const handle   = container.querySelector('.ba-handle');
+    let isDragging = false;
+
+    function updateSlider(x) {
+      const rect = container.getBoundingClientRect();
+      let pct = ((x - rect.left) / rect.width) * 100;
+      pct = Math.max(2, Math.min(98, pct));
+      afterImg.style.clipPath = `inset(0 0 0 ${pct}%)`;
+      divider.style.left = pct + '%';
+      handle.style.left = pct + '%';
+    }
+
+    container.addEventListener('mousedown', e => { isDragging = true; updateSlider(e.clientX); });
+    document.addEventListener('mousemove', e => { if (isDragging) updateSlider(e.clientX); });
+    document.addEventListener('mouseup', () => { isDragging = false; });
+
+    container.addEventListener('touchstart', e => { isDragging = true; updateSlider(e.touches[0].clientX); }, { passive: true });
+    document.addEventListener('touchmove', e => { if (isDragging) updateSlider(e.touches[0].clientX); }, { passive: true });
+    document.addEventListener('touchend', () => { isDragging = false; });
+  });
 });
 </script>
 </body>

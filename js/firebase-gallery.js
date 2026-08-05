@@ -1,4 +1,4 @@
-﻿/* =================================================================
+/* =================================================================
    IFB Service Center Anantapur - firebase-gallery.js
    Cloud gallery: stores photos as compressed base64 in Firestore.
    No Firebase Storage needed (works on free Spark plan).
@@ -131,12 +131,130 @@
     }
   }
 
+  /* -- Bookings Collection ------------------------------------ */
+  const LS_BOOKINGS_KEY = "ifb_local_cloud_bookings_v1";
+
+  function getLocalBookings() {
+    return JSON.parse(localStorage.getItem(LS_BOOKINGS_KEY) || "[]");
+  }
+
+  function saveLocalBooking(data) {
+    const list = getLocalBookings();
+    const id = "local_" + Date.now();
+    list.unshift({ ...data, id, date: data.date || new Date().toISOString().split("T")[0] });
+    localStorage.setItem(LS_BOOKINGS_KEY, JSON.stringify(list));
+    return id;
+  }
+
+  function updateLocalBookingStatus(id, status) {
+    const list = getLocalBookings();
+    const item = list.find(x => x.id === id);
+    if (item) {
+      item.status = status;
+      localStorage.setItem(LS_BOOKINGS_KEY, JSON.stringify(list));
+      return true;
+    }
+    return false;
+  }
+
+  function deleteLocalBooking(id) {
+    const list = getLocalBookings();
+    const filtered = list.filter(x => x.id !== id);
+    localStorage.setItem(LS_BOOKINGS_KEY, JSON.stringify(filtered));
+    return true;
+  }
+
+  /* -- Bookings Collection ------------------------------------ */
+  async function loadBookings() {
+    if (!_ready) return getLocalBookings();
+    try {
+      var snap = await _db.collection("bookings")
+                          .orderBy("createdAt", "desc")
+                          .get();
+      return snap.docs.map(function(doc) {
+        var d = doc.data();
+        return {
+          id:          doc.id,
+          name:        d.name        || "",
+          phone:       d.phone       || "",
+          location:    d.location    || "",
+          mapsLink:    d.mapsLink    || "",
+          appliance:   d.appliance   || "",
+          issue:       d.issue       || "",
+          time:        d.time        || "",
+          photo:       d.photo       || "",
+          status:      d.status      || "pending",
+          date:        d.date        || "",
+          createdAt:   d.createdAt   ? d.createdAt.toDate() : null
+        };
+      });
+    } catch (e) {
+      console.warn("FirebaseGallery: loadBookings failed (falling back to LocalStorage):", e);
+      return getLocalBookings();
+    }
+  }
+
+  async function saveBooking(data) {
+    if (!_ready) return saveLocalBooking(data);
+    try {
+      var docRef = await _db.collection("bookings").add({
+        name:        data.name        || "",
+        phone:       data.phone       || "",
+        location:    data.location    || "",
+        mapsLink:    data.mapsLink    || "",
+        appliance:   data.appliance   || "",
+        issue:       data.issue       || "",
+        time:        data.time        || "",
+        photo:       data.photo       || "",
+        status:      data.status      || "pending",
+        date:        data.date        || new Date().toISOString().split("T")[0],
+        createdAt:   firebase.firestore.FieldValue.serverTimestamp()
+      });
+      return docRef.id;
+    } catch (e) {
+      console.warn("FirebaseGallery: saveBooking failed (falling back to LocalStorage):", e);
+      return saveLocalBooking(data);
+    }
+  }
+
+  async function updateBookingStatus(docId, status) {
+    if (docId.startsWith("local_")) {
+      return updateLocalBookingStatus(docId, status);
+    }
+    if (!_ready) return false;
+    try {
+      await _db.collection("bookings").doc(docId).update({ status: status });
+      return true;
+    } catch (e) {
+      console.warn("FirebaseGallery: updateBookingStatus failed (falling back to LocalStorage):", e);
+      return updateLocalBookingStatus(docId, status);
+    }
+  }
+
+  async function deleteBooking(docId) {
+    if (docId.startsWith("local_")) {
+      return deleteLocalBooking(docId);
+    }
+    if (!_ready) return false;
+    try {
+      await _db.collection("bookings").doc(docId).delete();
+      return true;
+    } catch (e) {
+      console.warn("FirebaseGallery: deleteBooking failed (falling back to LocalStorage):", e);
+      return deleteLocalBooking(docId);
+    }
+  }
+
   /* -- Public API -------------------------------------------- */
   window.FirebaseGallery = {
     init:       init,
     loadWorks:  loadWorks,
     saveWork:   saveWork,
     deleteWork: deleteWork,
+    loadBookings: loadBookings,
+    saveBooking:  saveBooking,
+    updateBookingStatus: updateBookingStatus,
+    deleteBooking: deleteBooking,
     isReady:    function() { return _ready; }
   };
 })();

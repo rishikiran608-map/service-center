@@ -61,14 +61,14 @@ const DEFAULT_WORKS = [
   },
   {
     id: 'work-1',
-    title: 'IFB Front Load — Drum Bearing Replacement',
+    title: 'Before & After: IFB Drum Bearing Repair',
     category: 'washing-machine',
     type: 'past',
-    description: 'Replaced rusted drum bearing & oil seal. Restored smooth & silent spinning operation.',
+    description: 'Side-by-side view showing a heavily scaled & corroded drum spider (left) vs a brand new genuine replacement drum assembly (right) ready to run.',
     date: '2026-07-20',
     icon: '🫧',
     bg: 'linear-gradient(135deg, #0f3460, #2563eb)',
-    image: 'images/service-washing-machine.png'
+    image: 'images/before-after-gallery1.png'
   },
   {
     id: 'work-2',
@@ -105,14 +105,14 @@ const DEFAULT_WORKS = [
   },
   {
     id: 'work-5',
-    title: 'Samsung Front Load — PCB Control Board Repair',
+    title: 'Before & After: Samsung PCB Board Repair',
     category: 'washing-machine',
     type: 'past',
-    description: 'Diagnosed power trip error on main control circuit. Repaired micro-controller and tested for 3 full cycles.',
+    description: 'Side-by-side view showing a burnt controller board with component damage (left) vs a fully repaired green circuit board with clean new solder (right).',
     date: '2026-07-12',
     icon: '🫧',
     bg: 'linear-gradient(135deg, #0a2744, #0f5f8a)',
-    image: 'images/service-washing-machine.png'
+    image: 'images/before-after-gallery2.png'
   },
   {
     id: 'work-6',

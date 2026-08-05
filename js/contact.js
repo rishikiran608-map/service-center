@@ -112,6 +112,8 @@
       });
     }
 
+    let compressedPhotoBase64 = '';
+
     function handleFile(file) {
       if (!file.type.startsWith('image/')) {
         alert('Please select a valid photo.');
@@ -125,6 +127,31 @@
           if (photoZone) photoZone.style.display = 'none';
           hasPhotoAttached = true;
         }
+
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const max_size = 600;
+          let width = img.width;
+          let height = img.height;
+          if (width > height) {
+            if (width > max_size) {
+              height *= max_size / width;
+              width = max_size;
+            }
+          } else {
+            if (height > max_size) {
+              width *= max_size / height;
+              height = max_size;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          compressedPhotoBase64 = canvas.toDataURL('image/jpeg', 0.65);
+        };
+        img.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
@@ -132,6 +159,7 @@
     if (removeBtn) {
       removeBtn.addEventListener('click', () => {
         hasPhotoAttached = false;
+        compressedPhotoBase64 = '';
         if (photoInput) photoInput.value = '';
         if (photoPreview) photoPreview.style.display = 'none';
         if (photoZone) photoZone.style.display = 'block';
@@ -165,6 +193,26 @@
         return;
       }
 
+      // Save booking to Firestore if available
+      const bookingData = {
+        name:      data.name,
+        phone:     data.phone,
+        location:  data.location,
+        mapsLink:  data.mapsLink,
+        appliance: data.appliance,
+        issue:     data.issue,
+        time:      data.time,
+        photo:     compressedPhotoBase64,
+        status:    'pending',
+        date:      new Date().toISOString().split('T')[0]
+      };
+
+      if (window.FirebaseGallery && FirebaseGallery.isReady()) {
+        FirebaseGallery.saveBooking(bookingData).then(docId => {
+          console.log('Booking saved to cloud with ID:', docId);
+        });
+      }
+
       const text = encodeURIComponent(buildWAMessage(data));
       const waUrl = `https://wa.me/${WA_NUMBER}?text=${text}`;
 
@@ -177,6 +225,7 @@
         window.open(waUrl, '_blank', 'noopener,noreferrer');
         form.reset();
         hasPhotoAttached = false;
+        compressedPhotoBase64 = '';
         gpsMapsLink = '';
         if (photoPreview) photoPreview.style.display = 'none';
         if (photoZone) photoZone.style.display = 'block';
@@ -190,6 +239,7 @@
   // ── Init on DOM ready ───────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     initContactForm('contactForm');
+    if (window.FirebaseGallery) FirebaseGallery.init();
   });
 })();
 
