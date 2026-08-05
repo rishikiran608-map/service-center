@@ -177,36 +177,30 @@ const WorksManager = {
   getWorks() {
     try {
       const data = localStorage.getItem(STORAGE_KEY);
+      let storedWorks = [];
       if (data) {
-        let works = JSON.parse(data);
-        // Hydrate empty images from DEFAULT_WORKS matching id
-        let updated = false;
-        works = works.map(w => {
-          if (!w.image) {
-            const def = DEFAULT_WORKS.find(d => d.id === w.id);
-            if (def && def.image) {
-              updated = true;
-              return { ...w, image: def.image };
-            } else {
-              // category fallback
-              const catImg = w.category === 'ac' ? 'images/service-ac-repair.png' :
-                             w.category === 'refrigerator' ? 'images/service-refrigerator.png' :
-                             w.category === 'installation' ? 'images/hero-technician.png' : 'images/service-washing-machine.png';
-              updated = true;
-              return { ...w, image: catImg };
-            }
-          }
-          return w;
-        });
-        if (updated) this.saveWorks(works);
-        return works;
+        storedWorks = JSON.parse(data);
       }
+      
+      // Ensure all DEFAULT_WORKS are present and have their latest images
+      const storedMap = new Map(storedWorks.map(w => [w.id, w]));
+      const mergedDefaults = DEFAULT_WORKS.map(def => {
+        const stored = storedMap.get(def.id);
+        if (!stored) return def;
+        return { ...stored, image: def.image || stored.image };
+      });
+      
+      // Include any user-created custom items (not in DEFAULT_WORKS)
+      const defaultIds = new Set(DEFAULT_WORKS.map(d => d.id));
+      const customItems = storedWorks.filter(w => !defaultIds.has(w.id));
+      
+      const result = [...mergedDefaults, ...customItems];
+      this.saveWorks(result);
+      return result;
     } catch (e) {
       console.warn('Could not read works from localStorage:', e);
+      return DEFAULT_WORKS;
     }
-    // Default seed
-    this.saveWorks(DEFAULT_WORKS);
-    return DEFAULT_WORKS;
   },
 
   saveWorks(works) {
