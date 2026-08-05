@@ -62,20 +62,48 @@ const SEED_REVIEWS = [
   },
 ];
 
-// ── Load reviews from localStorage (merge with seeds) ─────
+// ── Load reviews: seeds + Firestore cloud + localStorage fallback ──
+async function loadReviewsAsync() {
+  let cloudReviews = [];
+  if (window.FirebaseReviews) {
+    cloudReviews = await FirebaseReviews.loadReviews();
+  }
+  const stored = JSON.parse(localStorage.getItem(REVIEWS_KEY) || '[]');
+  const seedIds  = new Set(SEED_REVIEWS.map(r => r.id));
+  const cloudIds = new Set(cloudReviews.map(r => r.id));
+  // Only keep localStorage items that aren't already in seeds or cloud
+  const localOnly = stored.filter(r => !seedIds.has(r.id) && !cloudIds.has(r.id));
+  return [...cloudReviews, ...localOnly, ...SEED_REVIEWS]
+    .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+}
+
+// ── Sync load (returns seeds + localStorage only — no await) ──
 function loadReviews() {
   const stored = JSON.parse(localStorage.getItem(REVIEWS_KEY) || '[]');
-  // Seeds should always be present; stored ones are user submissions
   const seedIds = new Set(SEED_REVIEWS.map(r => r.id));
   const userReviews = stored.filter(r => !seedIds.has(r.id));
   return [...SEED_REVIEWS, ...userReviews].sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
-// ── Save a new user review to localStorage ────────────────
-function saveReview(review) {
+// ── Save a new review to Firestore + localStorage ─────────────
+async function saveReview(review) {
+  // Save to localStorage immediately (fast, works offline)
   const stored = JSON.parse(localStorage.getItem(REVIEWS_KEY) || '[]');
   stored.push(review);
   localStorage.setItem(REVIEWS_KEY, JSON.stringify(stored));
+
+  // Also save to Firestore for cross-device visibility
+  if (window.FirebaseReviews) {
+    await FirebaseReviews.saveReview(review);
+  }
+}
+
+// Sync version (used by places that can't await)
+function saveReviewSync(review) {
+  const stored = JSON.parse(localStorage.getItem(REVIEWS_KEY) || '[]');
+  stored.push(review);
+  localStorage.setItem(REVIEWS_KEY, JSON.stringify(stored));
+  if (window.FirebaseReviews) FirebaseReviews.saveReview(review).catch(console.warn);
 }
 
 // ── Render stars ──────────────────────────────────────────

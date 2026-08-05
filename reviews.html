@@ -151,18 +151,43 @@
 
 <footer id="site-footer" role="contentinfo"></footer>
 
+<!-- Firebase v9 Compat SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/firebase-gallery.js"></script>
+<script src="js/firebase-reviews.js"></script>
 <script src="js/main.js"></script>
 <script src="js/reviews.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Initialize Firebase first
+  if (window.FirebaseGallery) FirebaseGallery.init();
+
   initStarPicker('starPicker', 'ratingValue');
   renderStats('reviewStats');
-  renderReviewsSorted('newest');
+  renderReviewsSorted('newest');   // immediate render with seeds + localStorage
   initReviewForm('reviewForm');
 
   document.getElementById('reviewSort').addEventListener('change', function () {
     renderReviewsSorted(this.value);
   });
+
+  // Load cloud reviews and re-render
+  if (window.FirebaseReviews) {
+    try {
+      const reviews = await loadReviewsAsync();
+      const sort = document.getElementById('reviewSort').value || 'newest';
+      const grid = document.getElementById('reviewsGrid');
+      let sorted = [...reviews];
+      if (sort === 'highest') sorted.sort((a,b) => b.rating - a.rating);
+      if (sort === 'lowest')  sorted.sort((a,b) => a.rating - b.rating);
+      grid.innerHTML = sorted.map(r => buildReviewCard(r)).join('');
+      if (typeof initScrollReveal === 'function') initScrollReveal();
+      renderStats('reviewStats');
+    } catch(e) { console.warn('Cloud reviews load error:', e); }
+  }
 });
 
 function renderReviewsSorted(sort) {

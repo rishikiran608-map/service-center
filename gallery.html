@@ -353,16 +353,51 @@
 
 <footer id="site-footer" role="contentinfo"></footer>
 
+<!-- Firebase v9 Compat SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+
 <script src="js/main.js"></script>
 <script src="js/works-manager.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/firebase-gallery.js"></script>
 <script>
 let currentCategoryFilter = 'all';
 let currentTypeFilter = 'all';
 let uploadedBase64Image = '';
+let _uploadedFile = null; // actual File object for Firebase Storage
 
-function renderGallery() {
+// Initialize Firebase
+if (window.FirebaseGallery) FirebaseGallery.init();
+
+// Combined works: DEFAULT_WORKS (from works-manager) + cloud works from Firestore
+let cloudWorks = [];
+
+async function renderGallery() {
   const grid = document.getElementById('galleryGrid');
-  const allWorks = window.WorksManager ? window.WorksManager.getWorks() : [];
+
+  // 1. Render default/local works immediately (fast)
+  const localWorks = window.WorksManager ? window.WorksManager.getWorks() : [];
+  const allWorks = mergeWorks(localWorks, cloudWorks);
+  _renderGrid(grid, allWorks);
+
+  // 2. Load cloud works from Firestore in background
+  if (window.FirebaseGallery && FirebaseGallery.isReady()) {
+    cloudWorks = await FirebaseGallery.loadWorks();
+    const merged = mergeWorks(localWorks, cloudWorks);
+    _renderGrid(grid, merged);
+  }
+}
+
+// Merge local + cloud, cloud takes precedence (dedup by id)
+function mergeWorks(local, cloud) {
+  const cloudIds = new Set(cloud.map(w => w.id));
+  const localOnly = local.filter(w => !cloudIds.has(w.id));
+  return [...cloud, ...localOnly].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+}
+
+function _renderGrid(grid, allWorks) {
 
   const filtered = allWorks.filter(item => {
     const matchCategory = currentCategoryFilter === 'all' || item.category === currentCategoryFilter;
@@ -589,6 +624,7 @@ function handleFile(file) {
     alert('Please select a valid image file (PNG, JPG, WEBP).');
     return;
   }
+  _uploadedFile = file; // store File object for Firebase Storage
   const reader = new FileReader();
   reader.onload = function(evt) {
     uploadedBase64Image = evt.target.result;
@@ -609,67 +645,95 @@ photoUrlInput.addEventListener('input', () => {
   }
 });
 
-// Form Submission
-addWorkForm.addEventListener('submit', e => {
+// Form Submission — async: upload image to Firebase Storage, save to Firestore
+addWorkForm.addEventListener('submit', async e => {
   e.preventDefault();
-  const title = document.getElementById('workTitle').value.trim();
-  const type = document.getElementById('workType').value;
-  const category = document.getElementById('workCategory').value;
+  const title       = document.getElementById('workTitle').value.trim();
+  const type        = document.getElementById('workType').value;
+  const category    = document.getElementById('workCategory').value;
   const description = document.getElementById('workDescription').value.trim();
-  const date = document.getElementById('workDate').value;
-  const finalImage = uploadedBase64Image || photoUrlInput.value.trim();
+  const date        = document.getElementById('workDate').value;
+  const urlImage    = photoUrlInput.value.trim();
 
-  if (!title) {
-    alert('Please enter a work title');
-    return;
+  if (!title) { alert('Please enter a work title'); return; }
+
+  const submitBtn = addWorkForm.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  submitBtn.textContent = '⏳ Saving…';
+
+  try {
+    if (window.FirebaseGallery && FirebaseGallery.isReady()) {
+      // Upload to Firebase Storage + save metadata to Firestore
+      const saved = await FirebaseGallery.saveWork(
+        { title, type, category, description, date, image: urlImage },
+        _uploadedFile   // null if no file was picked (URL used instead)
+      );
+      if (saved) {
+        cloudWorks.unshift(saved);
+      }
+    } else {
+      // Fallback: localStorage only
+      window.WorksManager.addWork({
+        title, type, category, description, date,
+        image: uploadedBase64Image || urlImage
+      });
+    }
+  } catch(err) {
+    console.error('Save error:', err);
+    alert('Save failed. Saved locally as fallback.');
+    window.WorksManager.addWork({ title, type, category, description, date, image: uploadedBase64Image || urlImage });
   }
-
-  window.WorksManager.addWork({
-    title,
-    type,
-    category,
-    description,
-    date,
-    image: finalImage
-  });
 
   addWorkForm.reset();
   uploadedBase64Image = '';
+  _uploadedFile = null;
   imagePreviewBox.classList.remove('show');
+  submitBtn.disabled = false;
+  submitBtn.textContent = '✨ Add Photo to Works Gallery';
 
-  renderGallery();
-  renderManageList();
-  alert('✨ Photo successfully added to works gallery!');
+  await renderGallery();
+  await renderManageList();
+  alert('✅ Photo saved to cloud gallery!');
 });
 
-function renderManageList() {
-  const works = window.WorksManager ? window.WorksManager.getWorks() : [];
-  worksCountEl.textContent = works.length;
+async function renderManageList() {
+  const localWorks  = window.WorksManager ? window.WorksManager.getWorks() : [];
+  const allWorks    = mergeWorks(localWorks, cloudWorks);
+  worksCountEl.textContent = allWorks.length;
 
-  if (works.length === 0) {
-    manageWorksList.innerHTML = `<div style="font-size:0.85rem;color:var(--gray-500);text-align:center;padding:12px">No photos found.</div>`;
+  if (allWorks.length === 0) {
+    manageWorksList.innerHTML = `<div style="font-size:0.85rem;color:var(--gray-500);text-align:center;padding:12px">No photos yet.</div>`;
     return;
   }
 
-  manageWorksList.innerHTML = works.map(w => `
+  manageWorksList.innerHTML = allWorks.map(w => `
     <div class="manage-item-row">
       <div class="manage-item-info">
         ${w.image ? `<img src="${w.image}" class="manage-item-thumb" alt="${w.title}" />` : `<div class="manage-item-thumb">${w.icon || '🛠️'}</div>`}
         <div style="overflow:hidden">
           <div class="manage-item-text">${w.title}</div>
-          <div class="manage-item-meta">${w.type === 'upcoming' ? '📅 Upcoming Work' : '🏆 Past Work'} • ${w.category}</div>
+          <div class="manage-item-meta">${w.type === 'upcoming' ? '📅 Upcoming' : '🏆 Past'} • ${w.category}${w._cloud ? ' ☁️' : ''}</div>
         </div>
       </div>
-      <button class="btn-delete-item" data-id="${w.id}">🗑️ Delete</button>
+      <button class="btn-delete-item" data-id="${w.id}" data-cloud="${!!w._cloud}">🗑️ Delete</button>
     </div>`).join('');
 
   manageWorksList.querySelectorAll('.btn-delete-item').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (confirm('Are you sure you want to delete this photo item?')) {
-        window.WorksManager.deleteWork(btn.dataset.id);
-        renderGallery();
-        renderManageList();
+    btn.addEventListener('click', async () => {
+      if (!confirm('Delete this photo?')) return;
+      const id      = btn.dataset.id;
+      const isCloud = btn.dataset.cloud === 'true';
+
+      if (isCloud && window.FirebaseGallery && FirebaseGallery.isReady()) {
+        btn.textContent = '⏳';
+        await FirebaseGallery.deleteWork(id);
+        cloudWorks = cloudWorks.filter(w => w.id !== id);
+      } else {
+        window.WorksManager.deleteWork(id);
       }
+
+      await renderGallery();
+      await renderManageList();
     });
   });
 }
@@ -685,8 +749,7 @@ resetDefaultsBtn.addEventListener('click', () => {
 // Set default date picker to today
 document.getElementById('workDate').value = new Date().toISOString().split('T')[0];
 
-// Safe init: DOM is already ready when this inline script runs at bottom of <body>
-// Use DOMContentLoaded only as a safety net for very fast load edge cases
+// Initial render
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', renderGallery);
 } else {
