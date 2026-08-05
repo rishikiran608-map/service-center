@@ -217,6 +217,21 @@
           <input type="text" id="serviceIssues" class="form-control" placeholder="e.g. Touchpad not responding, Heating failure, Magnetron issue, Door seal damage" />
         </div>
 
+        <div class="form-group">
+          <label class="form-label">Service Image / Cover Photo</label>
+          <div class="dropzone-box" id="dropzoneBox" style="border: 2px dashed var(--blue-300); border-radius: var(--radius-md); padding: 20px; text-align: center; cursor: pointer; transition: border-color 0.2s; background: var(--gray-50); display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 12px;">
+            <span style="font-size:1.8rem;margin-bottom:0.3rem">📸</span>
+            <span style="font-weight:600;font-size:0.85rem;color:var(--gray-700)">Drag &amp; Drop Image Here</span>
+            <span style="font-size:0.72rem;color:var(--gray-500);margin-top:0.1rem">or click to browse local files</span>
+            <input type="file" id="photoFileInput" accept="image/*" style="display:none" />
+          </div>
+          <!-- Preview thumbnail -->
+          <div class="image-preview-box" id="imagePreviewBox" style="display:none; margin-top: 10px; position: relative; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--gray-200); height: 120px; margin-bottom: 12px;">
+            <img src="" id="imagePreviewImg" alt="Service image preview" style="width: 100%; height: 100%; object-fit: cover;" />
+            <button type="button" id="btnClearPreview" style="position: absolute; top: 8px; right: 8px; padding: 4px 8px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 4px; font-size: 0.72rem; cursor: pointer;">✕ Clear Photo</button>
+          </div>
+        </div>
+
         <button type="submit" class="btn btn-primary w-full" style="padding:10px 16px;font-size:0.95rem">
           ✨ Add Service to Website
         </button>
@@ -363,6 +378,60 @@ function handleServicesManagementClick() {
   }
 }
 
+const sDropzoneBox = document.getElementById('dropzoneBox');
+const sPhotoFileInput = document.getElementById('photoFileInput');
+const sImagePreviewBox = document.getElementById('imagePreviewBox');
+const sImagePreviewImg = document.getElementById('imagePreviewImg');
+const sBtnClearPreview = document.getElementById('btnClearPreview');
+let serviceImageBase64 = '';
+
+sDropzoneBox.addEventListener('click', () => sPhotoFileInput.click());
+sDropzoneBox.addEventListener('dragover', e => { e.preventDefault(); sDropzoneBox.style.borderColor = 'var(--blue-600)'; });
+sDropzoneBox.addEventListener('dragleave', () => { sDropzoneBox.style.borderColor = 'var(--blue-300)'; });
+sDropzoneBox.addEventListener('drop', e => {
+  e.preventDefault();
+  sDropzoneBox.style.borderColor = 'var(--blue-300)';
+  if (e.dataTransfer.files && e.dataTransfer.files[0]) handleServiceFile(e.dataTransfer.files[0]);
+});
+sPhotoFileInput.addEventListener('change', e => {
+  if (e.target.files && e.target.files[0]) handleServiceFile(e.target.files[0]);
+});
+sBtnClearPreview.addEventListener('click', () => {
+  serviceImageBase64 = '';
+  sPhotoFileInput.value = '';
+  sImagePreviewBox.style.display = 'none';
+  sImagePreviewImg.src = '';
+});
+
+function handleServiceFile(file) {
+  if (!file.type.startsWith('image/')) {
+    alert('Please select an image file.');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    const img = new Image();
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      const maxDim = 600;
+      let w = img.width, h = img.height;
+      if (w > maxDim || h > maxDim) {
+        if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+        else { w = Math.round((w * maxDim) / h); h = maxDim; }
+      }
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      serviceImageBase64 = canvas.toDataURL('image/jpeg', 0.65);
+      sImagePreviewImg.src = serviceImageBase64;
+      sImagePreviewBox.style.display = 'block';
+    };
+    img.src = evt.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
 function openServicesModal() {
   servicesModalOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -373,6 +442,9 @@ function closeServicesModal() {
   servicesModalOverlay.classList.remove('open');
   document.body.style.overflow = '';
   addServiceForm.reset();
+  serviceImageBase64 = '';
+  sImagePreviewBox.style.display = 'none';
+  sImagePreviewImg.src = '';
 }
 
 openServicesModalBtn.addEventListener('click', handleServicesManagementClick);
@@ -403,10 +475,14 @@ addServiceForm.addEventListener('submit', e => {
     icon,
     priceRange,
     description,
-    issues
+    issues,
+    image: serviceImageBase64
   });
 
   addServiceForm.reset();
+  serviceImageBase64 = '';
+  sImagePreviewBox.style.display = 'none';
+  sImagePreviewImg.src = '';
   renderServicesPage();
   renderManageServicesList();
   alert('✨ Custom Service successfully added to the website!');
